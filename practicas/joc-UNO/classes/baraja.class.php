@@ -35,6 +35,11 @@
         }
         public function pinta_baraja_girada(){
             // Muestra todas las cartas giradas usando el metodo pinta_carta_girada()
+            $output = '';
+            foreach ($this->conjunto_cartas as $carta) {
+                $output .= $carta->pinta_carta_girada(); 
+            }
+            return $output;
         }
     }
 

@@ -3,24 +3,46 @@
 
     include "classes/carta.class.php";
     include "classes/baraja.class.php";
+    include "classes/jugador.class.php";
 
     if (!(isset($_SESSION['nplayers'])) || !(isset($_SESSION['ncards']))) {
         header('Location: index.php');
         exit();
     }
     
+    // crear un array donde se guardan los datos de cada jugador
+    if (!isset($_SESSION['jugadores'])) {
+        $_SESSION['jugadores'] = serialize(new Jugador());
+    }
+
+    $jugadores = unserialize($_SESSION['jugadores']);
+
+    // objeto baraja
     $baraja = new Baraja();
     $baraja->crea_baraja();
     $baraja->mezcla();
 
-    echo $baraja->pinta_baraja();
+    // crear una baraja para cada jugador 
+    for ($i=0; $i < $_SESSION['nplayers']; $i++) { 
+        $jugador = new Jugador();
+        $_SESSION['jugadores'][] = serialize($jugador );
+    }
+
+
+
+    // foreach ($_SESSION['jugadores'] as $jugador) {
+    //     $jugador->mano = new Baraja();
+    // }
+
+    // echo $baraja->pinta_baraja_girada();
 
     $cartas_total = $baraja->conjunto_cartas;
+    // echo count($cartas_total);
 
-    // echo '<pre>' , var_dump($cartas_total) , '</pre>';
+    echo '<pre>' , var_dump($_SESSION['jugadores']) , '</pre>';
 
 
-    $carta = new Carta("blue", 2, 1);
+    $carta = new Carta("red", 2, 1);
     
 
     function mostrarJugadores() {
@@ -33,7 +55,8 @@
                     <div class='d-flex flex-column gap-2 justify-items-center mx-auto'>
                 ";
                 for ($j=1; $j <= $_SESSION['ncards']; $j++) { 
-                    $playersContainer .= $carta->pinta_carta();
+                    
+                    $playersContainer .= $carta->pinta_carta_link();
                 }
             $playersContainer .= "
                     </div>
@@ -42,6 +65,9 @@
         }
         return $playersContainer;
     }
+
+
+    // TODO: Asignarle cartas a cada jugador despues de barajar
 
 
 ?>
@@ -62,7 +88,10 @@
        <div class="d-flex gap-5 mt-5">
             <?= mostrarJugadores()?>
        </div>
+        <div class="">
+            <!-- mostrar carta inicial baraja -->
 
+        </div>
     </div>
 </body>
 </html>
