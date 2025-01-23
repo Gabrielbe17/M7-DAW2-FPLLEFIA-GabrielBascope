@@ -4,7 +4,7 @@
     public int $numero_cartas;
     public int $turno; 
     public $baraja;
-    public string $carta_en_mesa;  
+    public $carta_en_mesa; //instancia de carta  
     public $array_jugadores = [];
     public string $constante_sentido;
 

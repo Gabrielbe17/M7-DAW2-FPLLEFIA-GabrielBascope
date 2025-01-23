@@ -20,9 +20,6 @@
         }
 
         public function mezcla(){
-            //Baralla les cartes aleatòriament. Utilitza la funció shuffle() de PHP
-            // per reorganitzar l'array conjunto_cartas.
-
             shuffle($this->conjunto_cartas);
         }
         public function pinta_baraja(){

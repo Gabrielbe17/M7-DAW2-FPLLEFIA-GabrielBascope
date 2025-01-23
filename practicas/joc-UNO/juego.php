@@ -4,58 +4,52 @@
     include "classes/carta.class.php";
     include "classes/baraja.class.php";
     include "classes/jugador.class.php";
+    include "classes/partida.class.php";
 
     if (!(isset($_SESSION['nplayers'])) || !(isset($_SESSION['ncards']))) {
         header('Location: index.php');
         exit();
     }
-    
-    // crear un array donde se guardan los datos de cada jugador
-    if (!isset($_SESSION['jugadores'])) {
-        $_SESSION['jugadores'] = serialize(new Jugador());
+
+    // Objeto partida. Se crea baraja al ingresar en num de jugadores y cartas
+    $partida = new Partida();
+    $partida->baraja = new Baraja();
+    $partida->baraja->crea_baraja();
+    $partida->baraja->mezcla();
+
+    function mostrarCartaEnMesa (){
+        global $partida;
+        $partida->carta_en_mesa = array_shift($partida->baraja->conjunto_cartas);
+        return $partida->carta_en_mesa->pinta_carta();
     }
-
-    $jugadores = unserialize($_SESSION['jugadores']);
-
-    // objeto baraja
-    $baraja = new Baraja();
-    $baraja->crea_baraja();
-    $baraja->mezcla();
 
     // crear una baraja para cada jugador 
     for ($i=0; $i < $_SESSION['nplayers']; $i++) { 
-        $jugador = new Jugador();
-        $_SESSION['jugadores'][] = serialize($jugador );
+        // creamos un jugador y le pasamos como id la posicion en el array
+        $jugador = new Jugador($i);
+        $partida->array_jugadores[] = $jugador;
+
+        for ($j=0; $j < $_SESSION['ncards']; $j++) {
+            $carta = array_shift($partida->baraja->conjunto_cartas);
+            $jugador->afegir_carta($carta);
+
+        }
     }
 
-
-
-    // foreach ($_SESSION['jugadores'] as $jugador) {
-    //     $jugador->mano = new Baraja();
-    // }
-
-    // echo $baraja->pinta_baraja_girada();
-
-    $cartas_total = $baraja->conjunto_cartas;
-    // echo count($cartas_total);
-
-    echo '<pre>' , var_dump($_SESSION['jugadores']) , '</pre>';
-
-
-    $carta = new Carta("red", 2, 1);
-    
+    // echo '<pre>' , var_dump($partida->array_jugadores) , '</pre>';
 
     function mostrarJugadores() {
-        global $carta;
+        global $partida;
+
         $playersContainer = '';
-        for ($i=1; $i <= $_SESSION['nplayers']; $i++) { 
+        for ($i=0; $i < $_SESSION['nplayers']; $i++) { 
             $playersContainer .= "
-                <div class='d-flex flex-column gap-3'>
-                    <h3 class='text-decoration-underline'>Jugador {$i}</h3>
-                    <div class='d-flex flex-column gap-2 justify-items-center mx-auto'>
-                ";
-                for ($j=1; $j <= $_SESSION['ncards']; $j++) { 
-                    
+                <div class='d-flex flex-column gap-3 rounded border p-2'>
+                    <h3 class='text-decoration-underline'>Jugador " . ($i + 1) . "</h3>
+                <div class='d-flex flex-column gap-2 justify-items-center mx-auto'>
+            ";
+                
+                foreach ($partida->array_jugadores[$i]->mano->conjunto_cartas as $carta) {
                     $playersContainer .= $carta->pinta_carta_link();
                 }
             $playersContainer .= "
@@ -67,7 +61,7 @@
     }
 
 
-    // TODO: Asignarle cartas a cada jugador despues de barajar
+
 
 
 ?>
@@ -83,14 +77,15 @@
 <body>
     <div class="container mt-5">
 
-       <h1 class="text-center">Juego</h1>
+       <h1 class="text-center">Juego UNO</h1>
 
        <div class="d-flex gap-5 mt-5">
             <?= mostrarJugadores()?>
        </div>
-        <div class="">
+        <div class="rounded border p-2 mt-5">
             <!-- mostrar carta inicial baraja -->
-
+            <p> Carta en Mesa: </p>
+            <?= mostrarCartaEnMesa()?>
         </div>
     </div>
 </body>
