@@ -8,6 +8,11 @@
     public $array_jugadores = [];
     public string $constante_sentido;
 
+    public function __construct() {
+        $this->constante_sentido = "horario";
+        $this->turno = 1;
+    }
+
     public function jugar(){
         
     }

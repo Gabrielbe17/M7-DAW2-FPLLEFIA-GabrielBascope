@@ -16,10 +16,18 @@
             //itera en mano (instancia de baraja), y elimina el objeto $carta pasado por parametro
             
         }
-        public function mostrar_ma(){
+        public function mostrar_ma($esSuTurno){
             //  Mostra totes les cartes del jugador utilitzant pinta_carta().
-            
+            $jugadorCartas = '';
 
+            foreach ($this->mano->conjunto_cartas as $carta) {
+                if ($esSuTurno) {
+                    $jugadorCartas .= $carta->pinta_carta_link();
+                }else{
+                    $jugadorCartas .= $carta->pinta_carta_girada();
+                }
+            }
+            return $jugadorCartas;
         }
     }
 ?>
