@@ -45,8 +45,6 @@
         return $partida->carta_en_mesa->pinta_carta();
 
         //mostrar carta en la mesa, si el jugador con turno actual selecciona carta valida, eliminamos su carta y lo lo introducimos al principio del array conjunto cartas (?)
-        
-        
     }
 
     function mostrarJugadores() {
@@ -74,10 +72,34 @@
 
 
     // $partida->array_jugadores[0]->mostrar_ma();
-    // echo '<pre>' , var_dump($partida->array_jugadores) , '</pre>';
-
+    // echo '<pre>' , var_dump($partida->array_jugadores[0]) , '</pre>';
 
     $_SESSION['partida'] = serialize($partida);
+
+    if (isset($_GET['num']) && isset($_GET['color'])) {
+        // logica para controlar el juego
+        //  -> escuchar peticiones get del jugador a selecionar una carta 
+        // comprobar que la carta color y num  == color y num de carta en mesa
+        $color = $_GET['color'];
+        $num = $_GET['num'];
+
+        echo $color;
+        echo $num;
+        echo "<br>";
+        echo $partida->turno;
+
+        if ($color == $partida->carta_en_mesa->palo || $num == $partida->carta_en_mesa->num) {
+            // echo "bien!";
+            $partida->cambiar_turno();
+            // eliminar carta de baraja de jugador y ponerla al principio de la baraja
+            // incrementar turno
+            
+        }else{
+            // echo "mal";
+        }
+
+        $_SESSION['partida'] = serialize($partida);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -93,13 +115,15 @@
         <a class="btn btn-danger" href="salir.php">Salir del Juego</a>
     </div>
     <div class="container mt-5">
-
        <h1 class="text-center">Juego UNO</h1>
 
        <div class="d-flex gap-5 mt-5">
             <?= mostrarJugadores()?>
        </div>
-        <div class="rounded border p-2 mt-5">
+       <div class="text-center py-3">
+           <a href="" class="btn btn-dark">Robar</a>
+       </div>
+       <div class="rounded border p-2 mt-5 text-center">
             <!-- mostrar carta inicial baraja -->
             <p> Carta en Mesa: </p>
             <?= mostrarCartaEnMesa()?>

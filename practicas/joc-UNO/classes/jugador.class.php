@@ -14,7 +14,11 @@
         
         public function eliminar_carta($carta){
             //itera en mano (instancia de baraja), y elimina el objeto $carta pasado por parametro
-            
+            foreach ($this->mano->conjunto_cartas as $carta) {
+                // if ($carta->) {
+                //     # code...
+                // }
+            }
         }
         public function mostrar_ma($esSuTurno){
             //  Mostra totes les cartes del jugador utilitzant pinta_carta().
