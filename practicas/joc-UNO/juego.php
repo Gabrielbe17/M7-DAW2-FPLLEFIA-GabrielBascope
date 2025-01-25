@@ -11,11 +11,51 @@
         exit();
     }
 
+
+    if (!isset($_SESSION['partida'])) {
+        $_SESSION['partida'] = serialize(new Partida());
+    }
+
+    $partida = unserialize($_SESSION['partida']);
+
+    // if (!isset($_SESSION['partida'])) {
+
+        // $partida = new Partida();
+        $partida->baraja = new Baraja();
+        $partida->baraja->crea_baraja();
+        $partida->baraja->mezcla();
+
+
+        // crear una baraja para cada jugador 
+        for ($i=0; $i < $_SESSION['nplayers']; $i++) { 
+            // creamos un jugador y le pasamos como id la posicion en el array
+            $jugador = new Jugador($i);
+            $partida->array_jugadores[] = $jugador;
+
+            for ($j=0; $j < $_SESSION['ncards']; $j++) {
+                $carta = array_shift($partida->baraja->conjunto_cartas);
+                $jugador->afegir_carta($carta);
+
+            }
+        }
+
+        $_SESSION['partida'] = serialize($partida);
+    // }else{
+    //     $partida = unserialize($_SESSION['partida']);
+    // }
+
+
     // Objeto partida. Se crea baraja al ingresar en num de jugadores y cartas
-    $partida = new Partida();
-    $partida->baraja = new Baraja();
-    $partida->baraja->crea_baraja();
-    $partida->baraja->mezcla();
+
+
+    // version 1
+
+    // $partida = new Partida();
+    // $partida->baraja = new Baraja();
+    // $partida->baraja->crea_baraja();
+    // $partida->baraja->mezcla();
+
+
 
     function mostrarCartaEnMesa (){
         global $partida;
@@ -36,8 +76,6 @@
         }
     }
 
-    // echo '<pre>' , var_dump($partida->array_jugadores) , '</pre>';
-
     function mostrarJugadores() {
         global $partida;
 
@@ -46,7 +84,7 @@
             $playersContainer .= "
                 <div class='d-flex flex-column gap-3 rounded border p-2'>
                     <h3 class='text-decoration-underline'>Jugador " . ($i + 1) . "</h3>
-                <div class='d-flex flex-column gap-2 justify-items-center mx-auto'>
+                <div class='d-flex gap-2 justify-items-center mx-auto flex-wrap'>
             ";
                 
                 foreach ($partida->array_jugadores[$i]->mano->conjunto_cartas as $carta) {
@@ -61,6 +99,8 @@
     }
 
 
+
+    // echo '<pre>' , var_dump($partida->array_jugadores) , '</pre>';
 
 
 
