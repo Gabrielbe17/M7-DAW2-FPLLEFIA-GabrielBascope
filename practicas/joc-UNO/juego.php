@@ -11,21 +11,22 @@
         exit();
     }
 
-
     if (!isset($_SESSION['partida'])) {
         $partida = new Partida();
         $partida->baraja = new Baraja();
         $partida->baraja->crea_baraja();
         $partida->baraja->mezcla();
+        $partida->numero_jugadores = $_SESSION['nplayers'];
+        $partida->numero_cartas = $_SESSION['ncards'];
         // $partida->carta_en_mesa = array_shift($partida->baraja->conjunto_cartas);
         
         // crear una baraja para cada jugador 
-        for ($i=0; $i < $_SESSION['nplayers']; $i++) { 
+        for ($i=0; $i < $partida->numero_jugadores; $i++) { 
             // creamos un jugador y le pasamos como id la posicion en el array
             $jugador = new Jugador($i);
             $partida->array_jugadores[] = $jugador;
             
-            for ($j=0; $j < $_SESSION['ncards']; $j++) {
+            for ($j=0; $j < $partida->numero_cartas; $j++) {
                 $carta = array_shift($partida->baraja->conjunto_cartas);
                 $jugador->afegir_carta($carta);
                 
@@ -52,7 +53,7 @@
         // global $jugador;
 
         $playersContainer = '';
-        for ($i=0; $i < $_SESSION['nplayers']; $i++) { 
+        for ($i=0; $i < $partida->numero_jugadores; $i++) { 
             $playersContainer .= "
                 <div class='d-flex flex-column gap-3 rounded border p-2'>
                     <h3 class='text-decoration-underline'>Jugador " . ($i + 1) . "</h3>
@@ -86,12 +87,15 @@
         echo $color;
         echo $num;
         echo "<br>";
-        echo $partida->turno;
+        // echo $partida->turno;
 
         if ($color == $partida->carta_en_mesa->palo || $num == $partida->carta_en_mesa->num) {
             // echo "bien!";
             $partida->cambiar_turno();
-            // eliminar carta de baraja de jugador y ponerla al principio de la baraja
+            // echo $partida->turno;
+
+            // eliminar carta de baraja de jugador y ponerla al principio de la baraja en mesa
+            
             // incrementar turno
             
         }else{

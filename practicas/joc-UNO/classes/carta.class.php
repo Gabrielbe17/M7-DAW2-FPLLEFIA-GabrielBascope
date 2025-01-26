@@ -2,10 +2,10 @@
     class Carta {
         public string $palo;
         public $num; //num o especial (string)
-        public int $id;
+        public string $id;
 
 
-        public function __construct(string $palo, $num, int $id){   
+        public function __construct(string $palo, $num, string $id){   
             $this->palo = $palo; //color de la carta
             $this->num = $num; //numero de la carta o especial
             $this->id = $id; //id carta
@@ -19,7 +19,7 @@
         }
         public function pinta_carta_link() {
             // mostrar la carta con un link para seleccionarla ()
-            return "<a href='?num={$this->num}&color={$this->palo}'><img src='images/cartas_uno/{$this->num}_{$this->palo}.png' alt='hola'/></a>";
+            return "<a href='?num={$this->num}&color={$this->palo}&id={$this->id}'><img src='images/cartas_uno/{$this->num}_{$this->palo}.png' alt='hola'/></a>";
         }
         public function pinta_carta_girada() {
             //mostrar carta girada (cuando esta oculta)

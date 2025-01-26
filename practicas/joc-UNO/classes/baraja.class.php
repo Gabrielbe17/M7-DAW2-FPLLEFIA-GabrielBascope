@@ -1,6 +1,7 @@
 <?php
     class Baraja{
         public $conjunto_cartas = [];
+        public $contador = 0;
 
         public function crea_baraja(){
             // generar todas las cartas de juego
@@ -9,13 +10,24 @@
                 // para cada color, crear baraja
                 for($i = 1; $i <= 9; $i++){
                     // como generar id?
-                    $this->conjunto_cartas[] = new Carta($color, $i, $i);
+                    $id = $color . '-' . $i .  '-' .  $this->contador;
+                    // ej -> red-1-0
+                    $this->conjunto_cartas[] = new Carta($color, $i, $id);
+                    $this->contador += 1;
                 }
 
                 // cartas especiales
+                $id = $color . '-' . 'skip'.  '-' .  $this->contador;
                 $this->conjunto_cartas[] = new Carta($color, 'skip', 11); // skip
+
+                $this->contador += 1;
+                $id = $color . '-' . 'picker'.  '-' .  $this->contador;
                 $this->conjunto_cartas[] = new Carta($color, 'picker', 12); // +2
+
+                $this->contador += 1;
+                $id = $color . '-' . 'reverse'.  '-' .  $this->contador;
                 $this->conjunto_cartas[] = new Carta($color, 'reverse', 13); // reversa
+
             }
         }
 
