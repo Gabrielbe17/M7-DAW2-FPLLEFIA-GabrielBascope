@@ -12,12 +12,14 @@
             $this->mano->conjunto_cartas[] = $carta;
         }
         
-        public function eliminar_carta($carta){
+        public function eliminar_carta($id){
             //itera en mano (instancia de baraja), y elimina el objeto $carta pasado por parametro
-            foreach ($this->mano->conjunto_cartas as $carta) {
-                // if ($carta->) {
-                //     # code...
-                // }
+            foreach ($this->mano->conjunto_cartas as $index => $cartabaraja) {
+                if ($id == $cartabaraja->id) {
+                    //eliminar y retornar carta seleccionada 
+                    array_splice($this->mano->conjunto_cartas, $index, 1);
+                    return $cartabaraja;
+                }
             }
         }
         public function mostrar_ma($esSuTurno){

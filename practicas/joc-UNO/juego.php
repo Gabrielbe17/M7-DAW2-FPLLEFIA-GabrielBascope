@@ -29,11 +29,13 @@
             for ($j=0; $j < $partida->numero_cartas; $j++) {
                 $carta = array_shift($partida->baraja->conjunto_cartas);
                 $jugador->afegir_carta($carta);
-                
             }
         }
 
-        $partida->carta_en_mesa = $partida->baraja->conjunto_cartas[0];
+        // $partida->carta_en_mesa = $partida->baraja->conjunto_cartas;
+        // $partida->carta_en_mesa = $partida->baraja->conjunto_cartas;
+        $partida->carta_en_mesa = array_shift($partida->baraja->conjunto_cartas);
+
         $_SESSION['partida'] = serialize($partida);
     }else{
         $partida = unserialize($_SESSION['partida']);
@@ -44,9 +46,8 @@
         global $partida;
         // $partida->carta_en_mesa = array_shift($partida->baraja->conjunto_cartas);
         return $partida->carta_en_mesa->pinta_carta();
-
-        //mostrar carta en la mesa, si el jugador con turno actual selecciona carta valida, eliminamos su carta y lo lo introducimos al principio del array conjunto cartas (?)
     }
+    
 
     function mostrarJugadores() {
         global $partida;
@@ -71,18 +72,21 @@
         return $playersContainer;
     }
 
+    function mostrarError(){
+        return "<div class='alert alert-danger'>Escoge otra carta!</div>";
+    }
 
-    // $partida->array_jugadores[0]->mostrar_ma();
     // echo '<pre>' , var_dump($partida->array_jugadores[0]) , '</pre>';
 
     $_SESSION['partida'] = serialize($partida);
 
-    if (isset($_GET['num']) && isset($_GET['color'])) {
+    if (isset($_GET['num']) && isset($_GET['color']) && isset($_GET['id'])) {
         // logica para controlar el juego
         //  -> escuchar peticiones get del jugador a selecionar una carta 
         // comprobar que la carta color y num  == color y num de carta en mesa
         $color = $_GET['color'];
         $num = $_GET['num'];
+        $id = $_GET['id'];
 
         echo $color;
         echo $num;
@@ -91,15 +95,19 @@
 
         if ($color == $partida->carta_en_mesa->palo || $num == $partida->carta_en_mesa->num) {
             // echo "bien!";
-            $partida->cambiar_turno();
-            // echo $partida->turno;
+            $jugador = $partida->array_jugadores[$partida->turno - 1];
+            $cartaSeleccionada = $jugador->eliminar_carta($id);
 
             // eliminar carta de baraja de jugador y ponerla al principio de la baraja en mesa
-            
             // incrementar turno
             
+            if ($cartaSeleccionada != null) {
+                $partida->carta_en_mesa = $cartaSeleccionada;
+                $partida->cambiar_turno();
+            }
+            
         }else{
-            // echo "mal";
+
         }
 
         $_SESSION['partida'] = serialize($partida);
@@ -118,7 +126,7 @@
     <div class="p-2">
         <a class="btn btn-danger" href="salir.php">Salir del Juego</a>
     </div>
-    <div class="container mt-5">
+    <div class="container mt-5 border">
        <h1 class="text-center">Juego UNO</h1>
 
        <div class="d-flex gap-5 mt-5">
