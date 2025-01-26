@@ -29,10 +29,16 @@
         // ○ +2: Obliga el següent jugador a robar dues cartes.
     }
     public function cambiar_turno(){
-        if ($this->turno  > $this->numero_jugadores - 1) {
-            $this->turno = 1;
+        if ($this->constante_sentido === "horario") {
+            $this->turno += 1;
+            if ($this->turno > $this->numero_jugadores) {
+                $this->turno = 1;
+            }
         }else{
-            $this->constante_sentido == 'horario' ? $this->turno += 1 : $this->turno -= 1;
+            $this->turno -= 1;
+            if ($this->turno < 1) {
+                $this->turno = $this->numero_jugadores;
+            }
         }
     }
     public function cambiar_sentido(){

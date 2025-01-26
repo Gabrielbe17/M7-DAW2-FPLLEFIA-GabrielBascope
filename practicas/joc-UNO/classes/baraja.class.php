@@ -18,15 +18,15 @@
 
                 // cartas especiales
                 $id = $color . '-' . 'skip'.  '-' .  $this->contador;
-                $this->conjunto_cartas[] = new Carta($color, 'skip', 11); // skip
+                $this->conjunto_cartas[] = new Carta($color, 'skip', $id); // skip
 
                 $this->contador += 1;
                 $id = $color . '-' . 'picker'.  '-' .  $this->contador;
-                $this->conjunto_cartas[] = new Carta($color, 'picker', 12); // +2
+                $this->conjunto_cartas[] = new Carta($color, 'picker', $id); // +2
 
                 $this->contador += 1;
                 $id = $color . '-' . 'reverse'.  '-' .  $this->contador;
-                $this->conjunto_cartas[] = new Carta($color, 'reverse', 13); // reversa
+                $this->conjunto_cartas[] = new Carta($color, 'reverse', $id); // reversa
 
             }
         }

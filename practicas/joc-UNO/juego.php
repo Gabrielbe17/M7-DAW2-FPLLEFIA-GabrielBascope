@@ -72,8 +72,12 @@
         return $playersContainer;
     }
 
+    $error = false;
     function mostrarError(){
-        return "<div class='alert alert-danger'>Escoge otra carta!</div>";
+        global $error;
+        if ($error) {
+            return "<div class='alert alert-danger'>Escoge otra carta o roba una</div>";
+        }
     }
 
     // echo '<pre>' , var_dump($partida->array_jugadores[0]) , '</pre>';
@@ -88,30 +92,66 @@
         $num = $_GET['num'];
         $id = $_GET['id'];
 
-        echo $color;
-        echo $num;
-        echo "<br>";
-        // echo $partida->turno;
 
+        
+        // reverse --> setear constante sentido a 'antihorario' y cambiar turno
+        // skip --> cambiar turno + 2
+        // +2 --> afegir 2 cartas al jugador siguiente
+        
+
+
+        // bloque para controlar la carta seleccionada, eliminar, poner en mesa, cambiar turno...
         if ($color == $partida->carta_en_mesa->palo || $num == $partida->carta_en_mesa->num) {
-            // echo "bien!";
-            $jugador = $partida->array_jugadores[$partida->turno - 1];
-            $cartaSeleccionada = $jugador->eliminar_carta($id);
-
+                    
             // eliminar carta de baraja de jugador y ponerla al principio de la baraja en mesa
             // incrementar turno
-            
+            $jugador = $partida->array_jugadores[$partida->turno - 1];
+            $cartaSeleccionada = $jugador->eliminar_carta($id);
+        
+            // controlar funciones especiales
+            switch ($num) {
+                case 'skip':
+                    $partida->turno += 1;
+                    // echo "skip";
+                    break;
+                case 'reverse':
+                    $partida->cambiar_sentido();
+                    break;
+                case 'picker':
+                    echo "picker";
+                    break;
+                default:
+                    break;
+            }
+
             if ($cartaSeleccionada != null) {
                 $partida->carta_en_mesa = $cartaSeleccionada;
                 $partida->cambiar_turno();
             }
-            
+        
         }else{
+            $error = true;
+        }    
+        
 
-        }
-
-        $_SESSION['partida'] = serialize($partida);
     }
+
+    if (isset($_GET['robar'])) {
+        // anyadir carta al jugador del turno actual y pasar al siguiente jugador
+
+        $jugador = $partida->array_jugadores[$partida->turno - 1];
+        $carta = array_shift($partida->baraja-> conjunto_cartas);
+
+        // var_dump($carta);
+        $jugador->afegir_carta($carta);
+
+        $partida->cambiar_turno();
+        
+    }
+    
+    echo $partida->turno;
+    $_SESSION['partida'] = serialize($partida);
+
 ?>
 
 <!DOCTYPE html>
@@ -126,14 +166,14 @@
     <div class="p-2">
         <a class="btn btn-danger" href="salir.php">Salir del Juego</a>
     </div>
-    <div class="container mt-5 border">
+    <div class="container mt-5">
        <h1 class="text-center">Juego UNO</h1>
-
+        <?= mostrarError()?>
        <div class="d-flex gap-5 mt-5">
             <?= mostrarJugadores()?>
        </div>
        <div class="text-center py-3">
-           <a href="" class="btn btn-dark">Robar</a>
+           <a href="?robar=true" class="btn btn-dark">Robar</a>
        </div>
        <div class="rounded border p-2 mt-5 text-center">
             <!-- mostrar carta inicial baraja -->
