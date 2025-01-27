@@ -32,8 +32,6 @@
             }
         }
 
-        // $partida->carta_en_mesa = $partida->baraja->conjunto_cartas;
-        // $partida->carta_en_mesa = $partida->baraja->conjunto_cartas;
         $partida->carta_en_mesa = array_shift($partida->baraja->conjunto_cartas);
 
         $_SESSION['partida'] = serialize($partida);
@@ -51,7 +49,6 @@
 
     function mostrarJugadores() {
         global $partida;
-        // global $jugador;
 
         $playersContainer = '';
         for ($i=0; $i < $partida->numero_jugadores; $i++) { 
@@ -80,24 +77,14 @@
         }
     }
 
-    // echo '<pre>' , var_dump($partida->array_jugadores[0]) , '</pre>';
 
     $_SESSION['partida'] = serialize($partida);
 
     if (isset($_GET['num']) && isset($_GET['color']) && isset($_GET['id'])) {
         // logica para controlar el juego
-        //  -> escuchar peticiones get del jugador a selecionar una carta 
-        // comprobar que la carta color y num  == color y num de carta en mesa
         $color = $_GET['color'];
         $num = $_GET['num'];
         $id = $_GET['id'];
-
-
-        
-        // reverse --> setear constante sentido a 'antihorario' y cambiar turno
-        // skip --> cambiar turno + 2
-        // +2 --> afegir 2 cartas al jugador siguiente
-        
 
 
         // bloque para controlar la carta seleccionada, eliminar, poner en mesa, cambiar turno...
@@ -111,14 +98,23 @@
             // controlar funciones especiales
             switch ($num) {
                 case 'skip':
-                    $partida->turno += 1;
-                    // echo "skip";
+                    $partida->cambiar_turno();
                     break;
                 case 'reverse':
                     $partida->cambiar_sentido();
                     break;
                 case 'picker':
-                    echo "picker";
+                    // si sentido horario, anyadir 2 cartas a jugador = turno + 1
+                    $indiceJugador = $partida->constante_sentido == "horario" ? $partida->turno : $partida->turno - 2; 
+                    $jugadorAfectado = $partida->array_jugadores[$indiceJugador];
+
+
+                    // var_dump($partida->baraja->conjunto_cartas);
+                    // var_dump($jugadorAfectado);
+                    for ($i=0; $i < 2; $i++) { 
+                        $carta = array_pop($partida->baraja->conjunto_cartas);
+                        $jugadorAfectado->afegir_carta($carta);                        
+                    }
                     break;
                 default:
                     break;
@@ -142,7 +138,6 @@
         $jugador = $partida->array_jugadores[$partida->turno - 1];
         $carta = array_shift($partida->baraja-> conjunto_cartas);
 
-        // var_dump($carta);
         $jugador->afegir_carta($carta);
 
         $partida->cambiar_turno();
