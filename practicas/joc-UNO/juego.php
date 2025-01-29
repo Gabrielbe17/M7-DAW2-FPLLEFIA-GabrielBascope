@@ -113,7 +113,10 @@
                     // var_dump($jugadorAfectado);
                     for ($i=0; $i < 2; $i++) { 
                         $carta = array_pop($partida->baraja->conjunto_cartas);
-                        $jugadorAfectado->afegir_carta($carta);                        
+                        if ($jugadorAfectado != null) {
+                            // si el jugador existe, añadir carta
+                            $jugadorAfectado->afegir_carta($carta);             
+                        }           
                     }
                     break;
                 default:
