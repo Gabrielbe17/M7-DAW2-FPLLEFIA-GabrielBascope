@@ -1,3 +1,9 @@
+<?php
+    if (isset($_GET['select'])) {
+        header('Location: '.$_GET['select']);
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,8 +18,28 @@
 <body>
     <?php include '../components/nav.php' ?>
     <section class="container mt-3">
+        <?php include '../components/header.php' ?>
         <h1>Patrones de Comportamiento</h1>
+        <p>Los patrones de comportamiento tratan con algoritmos y la asignación de responsabilidades entre objetos.</p>
 
+        <form action="">
+            <select class="form-select" aria-label="Patrones de Diseño de Comportamiento" name="select" onchange="this.form.submit()">
+                <option selected>Selecciona un Patrón de Comportamiento</option>
+                <optgroup label="Patrones de Comportamiento">
+                    <option value="../patrons/comportament/chain_of_responsibility.php">Chain of Responsibility</option>
+                    <option value="../patrons/comportament/command.php">Command</option>
+                    <option value="../patrons/comportament/iterator.php">Iterator</option>
+                    <option value="../patrons/comportament/mediator.php">Mediator</option>
+                    <option value="../patrons/comportament/memento.php">Memento</option>
+                    <option value="../patrons/comportament/observer.php">Observer</option>
+                    <option value="../patrons/comportament/state.php">State</option>
+                    <option value="../patrons/comportament/strategy.php">Strategy</option>
+                    <option value="../patrons/comportament/template_method.php">Template Method</option>
+                    <option value="../patrons/comportament/visitor.php">Visitor</option>
+                </optgroup>
+            </select>
+
+        </form>
     </section>
 </body>
 </html>

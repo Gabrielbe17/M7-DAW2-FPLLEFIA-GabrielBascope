@@ -1,1 +1,1 @@
-<h1 class="text-center">Patrones de Diseño</h1>
+<h1 class="text-center text-decoration-underline mb-5">Patrones de Diseño - Introducción</h1>

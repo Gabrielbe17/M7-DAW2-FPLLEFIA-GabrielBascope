@@ -1,3 +1,10 @@
+<?php
+    if (isset($_GET['select'])) {
+        header('Location: '.$_GET['select']);
+        exit();
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,8 +19,21 @@
 <body>
     <?php include '../components/nav.php' ?> 
     <section class="container mt-3">
+        <?php include '../components/header.php' ?>
         <h1>Patrones Creacionales</h1>
-        <p></p>
+        <p>Los patrones creacionales proporcionan varios mecanismos de creación de objetos que incrementan la flexibilidad y la reutilización del código existente.</p>
+        <form action="" method="get">
+            <select class="form-select" aria-label="Patrones de Diseño" name="select" onchange="this.form.submit()">
+                <option selected>Selecciona un patron de diseño</option>
+                <optgroup label="Patrones Creacionales">
+                    <option value="../patrons/creacionals/factory.php">Factory Method</option>
+                    <option value="../patrons/creacionals/abstract-factory.php">Abstract Factory</option>
+                    <option value="../patrons/creacionals/builder.php">Builder</option>
+                    <option value="../patrons/creacionals/prototype.php">Prototype</option>
+                    <option value="../patrons/creacionals/singleton.php">Singleton</option>
+                </optgroup>
+            </select>
+        </form>
     </section>
 </body>
 </html>

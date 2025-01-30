@@ -26,7 +26,7 @@
 <body class="">
     <?php include 'components/nav.php' ?>
     <section class="container mt-5">
-        <?php include 'components/header.php' ?>
+        <h1 class="text-center">Patrones de Diseño</h1>
 
         <div class="text-center">
             <p>Los patrones de diseño (design patterns) son soluciones

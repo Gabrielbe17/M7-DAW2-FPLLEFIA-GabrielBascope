@@ -1,3 +1,9 @@
+<?php
+    if (isset($_GET['select'])) {
+        header('Location: '.$_GET['select']);
+        exit();
+    }
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,21 +18,26 @@
 <body>
     <?php include '../components/nav.php'?>
     <section class="container mt-3">
+        <?php include '../components/header.php' ?>
         <h1>Patrones Estructurales</h1>
         <p>Explican cómo ensamblar objetos y clases en estructuras más grandes a la vez que se mantiene la flexibilidad y eficiencia de la estructura.</p>
 
-        <select class="form-select" aria-label="Default select example">
-            <option selected>Open this select menu</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
+        <form action="" method="get">
+            <select class="form-select" aria-label="Patrones de Diseño Estructurales" name="select" onchange="this.form.submit()">
+                <option selected>Selecciona un Patrón Estructural</option>
+                <optgroup label="Patrones Estructurales">
+                    <option value="../patrons/estructurals/adapter.php">Adapter</option>
+                    <option value="../patrons/estructurals/bridge.php">Bridge</option>
+                    <option value="../patrons/estructurals/composite.php">Composite</option>
+                    <option value="../patrons/estructurals/decorator.php">Decorator</option>
+                    <option value="../patrons/estructurals/facade.php">Facade</option>
+                    <option value="../patrons/estructurals/flyweight.php">Flyweight</option>
+                    <option value="../patrons/estructurals/proxy.php">Proxy</option>
+                </optgroup>
+            </select>
+
+        </form>
+
     </section>
 </body>
 </html>
-
-<!-- ─ singleton.php, creacional
-│   ├── factory.php, creacional
-│   ├── strategy.php, comportamiento
-│   ├── adapter.php, estructurales
-│   ├── observer.php , comportamiento-->
