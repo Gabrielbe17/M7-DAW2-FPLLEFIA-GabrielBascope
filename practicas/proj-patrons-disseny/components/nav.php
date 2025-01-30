@@ -16,23 +16,23 @@
                         <a class="nav-link active" role="button" aria-current="page" data-bs-toggle="dropdown" id="dropdown2" aria-haspopup="true" aria-expanded="false">Patrones Creacionales</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown2">
                             <a class="dropdown-item" href="/pages/creacionals.php">Introducción</a>
-                            <a class="dropdown-item" href="/patrons/factory.php">Factory</a>
-                            <a class="dropdown-item" href="/patrons/singleton.php">Singleton</a>
+                            <a class="dropdown-item" href="/patrons/creacionals/factory.php">Factory</a>
+                            <a class="dropdown-item" href="/patrons/creacionals/singleton.php">Singleton</a>
                         </div>
                     </div>
                     <div class="position-relative">
                         <a class="nav-link active" role="button" aria-current="page" data-bs-toggle="dropdown" id="dropdown1" aria-haspopup="true" aria-expanded="false">Patrones Estructurales</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown1">
                             <a class="dropdown-item" href="/pages/estructurals.php">Introducción</a>
-                            <a class="dropdown-item" href="/patrons/strategy.php">Strategy</a>
-                            <a class="dropdown-item" href="/patrons/observer.php">Observer</a>
+                            <a class="dropdown-item" href="/patrons/estructurals/strategy.php">Strategy</a>
+                            <a class="dropdown-item" href="/patrons/estructurals/observer.php">Observer</a>
                         </div>
                     </div>
                     <div class="position-relative">
                         <a class="nav-link active" role="button" aria-current="page" data-bs-toggle="dropdown" id="dropdown3" aria-haspopup="true" aria-expanded="false">Patrones de Comportamiento</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown3">
                             <a class="dropdown-item" href="/pages/comportament.php">Introducción</a>
-                            <a class="dropdown-item" href="/patrons/adapter.php">Adapter</a>
+                            <a class="dropdown-item" href="/patrons/comportament/coadapter.php">Adapter</a>
                         </div>
                     </div>
                 </div>
