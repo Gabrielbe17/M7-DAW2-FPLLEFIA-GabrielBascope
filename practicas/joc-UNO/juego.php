@@ -77,7 +77,6 @@
         }
     }
 
-
     $_SESSION['partida'] = serialize($partida);
 
     if (isset($_GET['num']) && isset($_GET['color']) && isset($_GET['id'])) {
@@ -86,69 +85,16 @@
         $num = $_GET['num'];
         $id = $_GET['id'];
 
+        $resultado = $partida->jugar($color, $num, $id);
 
-        // bloque para controlar la carta seleccionada, eliminar, poner en mesa, cambiar turno...
-        if ($color == $partida->carta_en_mesa->palo || $num == $partida->carta_en_mesa->num) {
-                    
-            // eliminar carta de baraja de jugador y ponerla al principio de la baraja en mesa
-            // incrementar turno
-            $jugador = $partida->array_jugadores[$partida->turno - 1];
-            $cartaSeleccionada = $jugador->eliminar_carta($id);
-        
-            // controlar funciones especiales
-            switch ($num) {
-                case 'skip':
-                    $partida->cambiar_turno();
-                    break;
-                case 'reverse':
-                    $partida->cambiar_sentido();
-                    break;
-                case 'picker':
-                    // si sentido horario, anyadir 2 cartas a jugador = turno + 1
-                    $indiceJugador = $partida->constante_sentido == "horario" ? $partida->turno : $partida->turno - 2; 
-                    $jugadorAfectado = $partida->array_jugadores[$indiceJugador];
-
-                    for ($i=0; $i < 2; $i++) { 
-                        $carta = array_pop($partida->baraja->conjunto_cartas);
-                        if ($jugadorAfectado != null) {
-                            // si el jugador existe, añadir carta
-                            $jugadorAfectado->afegir_carta($carta);             
-                        }           
-                    }
-                    break;
-                default:
-                    break;
-            }
-
-            if ($cartaSeleccionada != null) {
-                $partida->carta_en_mesa = $cartaSeleccionada;
-                $partida->cambiar_turno();
-            }
-        
-        }else{
+        if ($resultado == false) {
             $error = true;
-        }    
-        
+        }
 
     }
 
     if (isset($_GET['robar'])) {
-        // anyadir carta al jugador del turno actual y pasar al siguiente jugador
-        $jugador = $partida->array_jugadores[$partida->turno - 1];
-        
-        // controlar el caso en que conjunto cartas este vacio
-        if (empty($partida->baraja->conjunto_cartas)) {
-            $partida->baraja->crea_baraja();
-            $partida->baraja->mezcla();
-        }else{
-            $carta = array_shift($partida->baraja-> conjunto_cartas);
-        }
-
-        // añadir carta al jugador y seguir con otro jugador
-        $jugador->afegir_carta($carta);
-
-        $partida->cambiar_turno();
-        
+        $partida->robar_carta();
     }
     
     echo $partida->turno;
