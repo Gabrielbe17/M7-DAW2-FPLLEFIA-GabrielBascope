@@ -12,9 +12,6 @@
         }
 
         public function pinta_carta() {
-            // mostrar la carta como elemento img html (sin link --> las cartas giradas / cartas del mazo ...)
-            // ejemplo pinta carta numerada
-
             return "<img src='images/cartas_uno/{$this->num}_{$this->palo}.png' alt='hola'/>";
         }
         public function pinta_carta_link() {

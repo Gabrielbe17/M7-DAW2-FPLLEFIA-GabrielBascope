@@ -108,9 +108,6 @@
                     $indiceJugador = $partida->constante_sentido == "horario" ? $partida->turno : $partida->turno - 2; 
                     $jugadorAfectado = $partida->array_jugadores[$indiceJugador];
 
-
-                    // var_dump($partida->baraja->conjunto_cartas);
-                    // var_dump($jugadorAfectado);
                     for ($i=0; $i < 2; $i++) { 
                         $carta = array_pop($partida->baraja->conjunto_cartas);
                         if ($jugadorAfectado != null) {
@@ -137,10 +134,17 @@
 
     if (isset($_GET['robar'])) {
         // anyadir carta al jugador del turno actual y pasar al siguiente jugador
-
         $jugador = $partida->array_jugadores[$partida->turno - 1];
-        $carta = array_shift($partida->baraja-> conjunto_cartas);
+        
+        // controlar el caso en que conjunto cartas este vacio
+        if (empty($partida->baraja->conjunto_cartas)) {
+            $partida->baraja->crea_baraja();
+            $partida->baraja->mezcla();
+        }else{
+            $carta = array_shift($partida->baraja-> conjunto_cartas);
+        }
 
+        // añadir carta al jugador y seguir con otro jugador
         $jugador->afegir_carta($carta);
 
         $partida->cambiar_turno();
@@ -148,6 +152,8 @@
     }
     
     echo $partida->turno;
+    echo "<br>";
+    echo count($partida->baraja->conjunto_cartas);
     $_SESSION['partida'] = serialize($partida);
 
 ?>

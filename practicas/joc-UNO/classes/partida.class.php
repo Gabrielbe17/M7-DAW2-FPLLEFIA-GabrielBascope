@@ -19,7 +19,7 @@
         // ○ Permetre que el jugador actual tiri una carta o robi si no pot jugar.
         // ○ Verificar si un jugador ha guanyat.
 
-
+        
         
     }
     public function normas_uno(){
