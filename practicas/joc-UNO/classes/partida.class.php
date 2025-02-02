@@ -26,7 +26,12 @@
             // incrementar turno
             $jugador = $this->array_jugadores[$this->turno - 1];
             $cartaSeleccionada = $jugador->eliminar_carta($id);
-        
+            
+            // comprobar si el jugador ha ganado
+            if (count($jugador->mano->conjunto_cartas) == 0) {
+                return "El Jugador {$this->turno} ha ganado!";
+            }
+
             $this->normas_uno($num);
 
             if ($cartaSeleccionada != null) {
@@ -48,7 +53,7 @@
             $this->baraja->crea_baraja();
             $this->baraja->mezcla();
         }
-        
+
         $carta = array_shift($this->baraja->conjunto_cartas);
 
         // añadir carta al jugador y seguir con otro jugador

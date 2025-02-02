@@ -25,3 +25,9 @@
     position: relative;
     z-index: 1;
 }
+img{
+    transition: all .15s;
+}
+img:hover{
+    transform: scale(1.05);
+}

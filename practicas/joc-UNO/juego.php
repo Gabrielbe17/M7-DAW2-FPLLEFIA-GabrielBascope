@@ -54,8 +54,8 @@
         for ($i=0; $i < $partida->numero_jugadores; $i++) { 
             $playersContainer .= "
                 <div class='d-flex flex-column gap-3 rounded border p-2'>
-                    <h3 class='text-decoration-underline'>Jugador " . ($i + 1) . "</h3>
-                <div class='d-flex gap-2 justify-items-center mx-auto flex-wrap'>
+                    <h3 class='text-decoration-underline text-center'>Jugador " . ($i + 1) . "</h3>
+                <div class='d-flex gap-2 justify-items-center mx-auto flex-wrap justify-content-evenly'>
             ";
                 // metodo mostrar ma, y si es el turno del jugador mostrar girado o no
                 $jugador = $partida->array_jugadores[$i];
@@ -70,10 +70,15 @@
     }
 
     $error = false;
-    function mostrarError(){
+    $mensaje_partida = '';
+    function mostrarMensajePartida(){
         global $error;
+        global $mensaje_partida;
+
         if ($error) {
             return "<div class='alert alert-danger'>Escoge otra carta o roba una</div>";
+        }else if($mensaje_partida){
+            return "<div class='alert alert-success' role='alert'>{$mensaje_partida}</div>";
         }
     }
 
@@ -89,6 +94,8 @@
 
         if ($resultado == false) {
             $error = true;
+        }else if(gettype($resultado) == "string"){
+            $mensaje_partida = $resultado;
         }
 
     }
@@ -97,9 +104,9 @@
         $partida->robar_carta();
     }
     
-    echo $partida->turno;
-    echo "<br>";
-    echo count($partida->baraja->conjunto_cartas);
+    // echo $partida->turno;
+    // echo "<br>";
+    // echo count($partida->baraja->conjunto_cartas);
     $_SESSION['partida'] = serialize($partida);
 
 ?>
@@ -110,6 +117,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UNO Game</title>
+    <link rel="stylesheet" href="styles/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <body>
@@ -118,7 +126,7 @@
     </div>
     <div class="container mt-5">
        <h1 class="text-center">Juego UNO</h1>
-        <?= mostrarError()?>
+        <?= mostrarMensajePartida()?>
        <div class="d-flex gap-5 mt-5">
             <?= mostrarJugadores()?>
        </div>
