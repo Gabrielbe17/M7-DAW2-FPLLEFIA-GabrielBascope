@@ -18,14 +18,22 @@
                             <a class="dropdown-item" href="/pages/creacionals.php">Introducción</a>
                             <a class="dropdown-item" href="/patrons/creacionals/factory.php">Factory</a>
                             <a class="dropdown-item" href="/patrons/creacionals/singleton.php">Singleton</a>
+                            <a class="dropdown-item" href="/patrons/creacionals/prototype.php">Prototype</a>
+                            <a class="dropdown-item" href="/patrons/creacionals/builder.php">Builder</a>
+                            <a class="dropdown-item" href="/patrons/creacionals/abstract-factory.php">Abstract</a>
                         </div>
                     </div>
                     <div class="position-relative">
                         <a class="nav-link active" role="button" aria-current="page" data-bs-toggle="dropdown" id="dropdown1" aria-haspopup="true" aria-expanded="false">Patrones Estructurales</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown1">
                             <a class="dropdown-item" href="/pages/estructurals.php">Introducción</a>
-                            <a class="dropdown-item" href="/patrons/estructurals/strategy.php">Strategy</a>
-                            <a class="dropdown-item" href="/patrons/estructurals/observer.php">Observer</a>
+                            <a class="dropdown-item" href="/patrons/estructurals/adapter.php">Adapter</a>
+                            <a class="dropdown-item" href="/patrons/estructurals/bridge.php">Bridge</a>
+                            <a class="dropdown-item" href="/patrons/estructurals/composite.php">Composite</a>
+                            <a class="dropdown-item" href="/patrons/estructurals/decorator.php">Decorator</a>
+                            <a class="dropdown-item" href="/patrons/estructurals/facade.php">Facade</a>
+                            <a class="dropdown-item" href="/patrons/estructurals/flyweight.php">Flyweight</a>
+                            <a class="dropdown-item" href="/patrons/estructurals/proxy.php">Proxy</a>
                         </div>
                     </div>
                     <div class="position-relative">
