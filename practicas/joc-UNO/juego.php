@@ -18,7 +18,6 @@
         $partida->baraja->mezcla();
         $partida->numero_jugadores = $_SESSION['nplayers'];
         $partida->numero_cartas = $_SESSION['ncards'];
-        // $partida->carta_en_mesa = array_shift($partida->baraja->conjunto_cartas);
         
         // crear una baraja para cada jugador 
         for ($i=0; $i < $partida->numero_jugadores; $i++) { 
@@ -53,7 +52,7 @@
         $playersContainer = '';
         for ($i=0; $i < $partida->numero_jugadores; $i++) { 
             $playersContainer .= "
-                <div class='d-flex flex-column gap-3 rounded border p-2'>
+                <div class='d-flex flex-column gap-3 rounded border shadow-sm p-2'>
                     <h3 class='text-decoration-underline text-center'>Jugador " . ($i + 1) . "</h3>
                 <div class='d-flex gap-2 justify-items-center mx-auto flex-wrap justify-content-evenly'>
             ";
@@ -104,9 +103,11 @@
         $partida->robar_carta();
     }
     
+
     // echo $partida->turno;
     // echo "<br>";
     // echo count($partida->baraja->conjunto_cartas);
+
     $_SESSION['partida'] = serialize($partida);
 
 ?>
@@ -124,20 +125,24 @@
     <div class="p-2">
         <a class="btn btn-danger" href="salir.php">Salir del Juego</a>
     </div>
-    <div class="container mt-5">
-       <h1 class="text-center">Juego UNO</h1>
+    <div class="container">
+       <div class="d-flex align-items-center justify-content-center mb-3 gap-5">
+           <div class="text-center">
+               <p> Robar: </p>
+               <a href="?robar=true" class="">
+                   <img style="width: 5.5rem" src="./images/cartas_uno/carta_girada.png" alt="">
+               </a>
+           </div>
+
+           <div class="rounded  text-center">
+                <p> Carta en Mesa: </p>
+                <?= mostrarCartaEnMesa()?>
+            </div>
+       </div>
         <?= mostrarMensajePartida()?>
        <div class="d-flex gap-5 mt-5">
             <?= mostrarJugadores()?>
        </div>
-       <div class="text-center py-3">
-           <a href="?robar=true" class="btn btn-dark">Robar</a>
-       </div>
-       <div class="rounded border p-2 mt-5 text-center">
-            <!-- mostrar carta inicial baraja -->
-            <p> Carta en Mesa: </p>
-            <?= mostrarCartaEnMesa()?>
-        </div>
     </div>
 </body>
 </html>

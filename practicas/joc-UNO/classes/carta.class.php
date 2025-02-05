@@ -12,15 +12,15 @@
         }
 
         public function pinta_carta() {
-            return "<img src='images/cartas_uno/{$this->num}_{$this->palo}.png' alt='hola'/>";
+            return "<img src='images/cartas_uno/{$this->num}_{$this->palo}.png' alt='carta'/>";
         }
         public function pinta_carta_link() {
             // mostrar la carta con un link para seleccionarla ()
-            return "<a href='?num={$this->num}&color={$this->palo}&id={$this->id}'><img src='images/cartas_uno/{$this->num}_{$this->palo}.png' alt='hola'/></a>";
+            return "<a href='?num={$this->num}&color={$this->palo}&id={$this->id}'><img style='width: 4.5rem' src='images/cartas_uno/{$this->num}_{$this->palo}.png' alt='carta'/></a>";
         }
         public function pinta_carta_girada() {
             //mostrar carta girada (cuando esta oculta)
-            return "<img style='width: 5rem' src='images/cartas_uno/carta_girada.png' alt='carta_girada'/>";
+            return "<img style='width: 4rem' src='images/cartas_uno/carta_girada.png' alt='carta_girada'/>";
         }   
 
     }

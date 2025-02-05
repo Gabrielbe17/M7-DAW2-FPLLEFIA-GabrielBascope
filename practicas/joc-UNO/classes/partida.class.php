@@ -80,7 +80,7 @@
 
                 // como picker elimina dos cartas de conjunto cartas, comprobar que el array no quede vacio
                 for ($i=0; $i < 2; $i++) { 
-                    if (count($this->baraja->conjunto_cartas) == 2) {
+                    if (count($this->baraja->conjunto_cartas) <= 2) {
                         $this->baraja->crea_baraja();
                         $this->baraja->mezcla();
                     }
