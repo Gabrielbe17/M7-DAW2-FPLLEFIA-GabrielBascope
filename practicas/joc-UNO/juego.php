@@ -140,7 +140,7 @@
             </div>
        </div>
         <?= mostrarMensajePartida()?>
-       <div class="d-flex gap-5 mt-5">
+       <div class="d-flex gap-5 mt-5 justify-content-center">
             <?= mostrarJugadores()?>
        </div>
     </div>
