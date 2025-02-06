@@ -4,6 +4,7 @@
         public $habitacions = [];
 
         public function llistarHabitacions() {
+            // per mostrar només les habitacions disponibles.
             
         }
         public function reservarHabitacio($tipus) {

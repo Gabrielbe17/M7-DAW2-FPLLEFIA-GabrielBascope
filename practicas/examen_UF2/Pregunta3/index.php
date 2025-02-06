@@ -17,8 +17,8 @@
 </head>
 <body>
     <form method="get" action="">
-        <label for="numGuess">Tipo:</label>
-        <input type="number" id="numGuess" name="numGuess" min="1" required><br><br>
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo" name="tipo" min="1" required><br><br>
             
         <input type="submit" value="Reservar">
     </form>
