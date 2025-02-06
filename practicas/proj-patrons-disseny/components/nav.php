@@ -40,7 +40,16 @@
                         <a class="nav-link active" role="button" aria-current="page" data-bs-toggle="dropdown" id="dropdown3" aria-haspopup="true" aria-expanded="false">Patrones de Comportamiento</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown3">
                             <a class="dropdown-item" href="/pages/comportament.php">Introducción</a>
-                            <a class="dropdown-item" href="/patrons/comportament/coadapter.php">Adapter</a>
+                            <a class="dropdown-item" href="/patrons/comportament/chain_of_responsibility.php">Chain of Responsibility</a>
+                            <a class="dropdown-item" href="/patrons/comportament/command.php">Command</a>
+                            <a class="dropdown-item" href="/patrons/comportament/iterator.php">Iterator</a>
+                            <a class="dropdown-item" href="/patrons/comportament/mediator.php">Mediator</a>
+                            <a class="dropdown-item" href="/patrons/comportament/memento.php">Memento</a>
+                            <a class="dropdown-item" href="/patrons/comportament/observer.php">Observer</a>
+                            <a class="dropdown-item" href="/patrons/comportament/state.php">State</a>
+                            <a class="dropdown-item" href="/patrons/comportament/strategy.php">Strategy</a>
+                            <a class="dropdown-item" href="/patrons/comportament/template_method.php">Template Method</a>
+                            <a class="dropdown-item" href="/patrons/comportament/visitor.php">Visitor</a>
                         </div>
                     </div>
                 </div>
