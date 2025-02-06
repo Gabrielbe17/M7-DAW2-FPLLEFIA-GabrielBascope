@@ -3,7 +3,6 @@
 
     include "./classes/Usuari.class.php"; 
 
-
     $error = false;
     if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if(isset($_GET["nombre"]) && isset($_GET["edat"]) && isset($_GET["email"])){
@@ -11,26 +10,25 @@
             $edat = $_GET["edat"];
             $email = $_GET["email"];
     
-            
             $usuario = new Usuari($nombre, $edat, $email);
-            var_dump($usuario);
 
             if ($usuario->validarDades()) {
                 $_SESSION["usuario"] = serialize($usuario);
-            }else{
+                echo "<p style='color: green'>Usuario guardado correctamente.</p>";
+            } else {
                 $error = true;
             }
         }
     }
 
-
     function mostrarMensajeError(){
         global $error;
         if($error){
             echo "<p style='color: red'>Los datos introducidos no son válidos.</p>";
+        }else{
+            echo "";
         }
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -58,8 +56,7 @@
             
         <input type="submit" value="Entrar">
 
-        <!-- mostrar mensaje de error si lo hay, validad dades, sino, guardar usuario en sesión -->
-         <?= mostrarMensajeError()?>
+        <?= mostrarMensajeError() ?>
     </form>  
 </body>
 </html>

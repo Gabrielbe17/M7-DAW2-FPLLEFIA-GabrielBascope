@@ -14,10 +14,13 @@
 
 
         public function validarDades(){
-            // que comprovi si l’edat és un número i si el correu té un format vàlid.
-            $correuValid = str_contains($this->correu, "@gmail.com");
-            return gettype($this->edat) === "integer" && $correuValid;
+            $edadValida = is_numeric($this->edat);
+            
+            $correuValid = strpos($this->correu, "@gmail.com") !== false;
+            
+            return $edadValida && $correuValid;
         }
+        
 
     }
 
