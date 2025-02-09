@@ -24,18 +24,11 @@
 
         <form action="">
             <select class="form-select" aria-label="Patrones de Diseño de Comportamiento" name="select" onchange="this.form.submit()">
-                <option selected>Selecciona un Patrón de Comportamiento</option>
+                <option selected disabled>Selecciona un Patrón de Comportamiento</option>
                 <optgroup label="Patrones de Comportamiento">
                     <option value="../patrons/comportament/chain_of_responsibility.php">Chain of Responsibility</option>
                     <option value="../patrons/comportament/command.php">Command</option>
                     <option value="../patrons/comportament/iterator.php">Iterator</option>
-                    <option value="../patrons/comportament/mediator.php">Mediator</option>
-                    <option value="../patrons/comportament/memento.php">Memento</option>
-                    <option value="../patrons/comportament/observer.php">Observer</option>
-                    <option value="../patrons/comportament/state.php">State</option>
-                    <option value="../patrons/comportament/strategy.php">Strategy</option>
-                    <option value="../patrons/comportament/template_method.php">Template Method</option>
-                    <option value="../patrons/comportament/visitor.php">Visitor</option>
                 </optgroup>
             </select>
 

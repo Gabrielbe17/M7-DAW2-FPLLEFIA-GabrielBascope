@@ -24,15 +24,11 @@
 
         <form action="" method="get">
             <select class="form-select" aria-label="Patrones de Diseño Estructurales" name="select" onchange="this.form.submit()">
-                <option selected>Selecciona un Patrón Estructural</option>
+                <option selected disabled>Selecciona un Patrón Estructural</option>
                 <optgroup label="Patrones Estructurales">
                     <option value="../patrons/estructurals/adapter.php">Adapter</option>
                     <option value="../patrons/estructurals/bridge.php">Bridge</option>
                     <option value="../patrons/estructurals/composite.php">Composite</option>
-                    <option value="../patrons/estructurals/decorator.php">Decorator</option>
-                    <option value="../patrons/estructurals/facade.php">Facade</option>
-                    <option value="../patrons/estructurals/flyweight.php">Flyweight</option>
-                    <option value="../patrons/estructurals/proxy.php">Proxy</option>
                 </optgroup>
             </select>
 

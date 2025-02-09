@@ -31,6 +31,31 @@
                 <br>
                 <p>
                 Independientemente de cómo se estructure una colección, debe aportar una forma de acceder a sus elementos de modo que otro código pueda utilizar dichos elementos. Debe haber una forma de recorrer cada elemento de la colección sin acceder a los mismos elementos una y otra vez.</p>
+            
+                <p>Esto puede parecer sencillo pero y si una estructura de datos compleja?. Podria variar bastante y añadir mas y más algoritmos de recorrido nubla el objetivo principal, el almacenamiento eficiente de la información</p>
+            </div>
+
+            <h2 class="mt-5">Solución</h2>
+            <div>
+                <p>El patrón Iterator propone una solución elegante para recorrer colecciones de objetos sin exponer su estructura interna. Los elementos clave de esta solución son:</p>
+
+                <ul>
+                    <li><strong>Objeto iterador independiente:</strong> Se extrae la lógica de recorrido de la colección y se coloca en un objeto separado llamado iterador.</li>
+
+                    <li><strong>Encapsulación de detalles:</strong> El iterador encapsula todos los detalles del recorrido, como la posición actual y los elementos restantes.</li>
+
+                    <li><strong>Múltiples iteradores simultáneos:</strong> Varios iteradores pueden recorrer la misma colección al mismo tiempo, de forma independiente.</li>
+
+                    <li><strong>Método principal de extracción:</strong> Los iteradores suelen tener un método principal para extraer elementos de la colección. El cliente lo ejecuta hasta que no devuelve más elementos.</li>
+
+                    <li><strong>Interfaz común:</strong> Todos los iteradores implementan la misma interfaz, lo que permite al código cliente ser compatible con diferentes tipos de colecciones y algoritmos de recorrido.</li>
+
+                    <li><strong>Flexibilidad:</strong> Se pueden crear nuevos iteradores para formas específicas de recorrer una colección sin modificar la colección o el cliente.</li>
+                </ul>
+
+                <p>Esta solución permite desacoplar el algoritmo de recorrido de la estructura de la colección, proporcionando una forma estandarizada y flexible de acceder a los elementos de diferentes tipos de colecciones.</p>
+
+                <img src="https://refactoring.guru/images/patterns/diagrams/iterator/solution1.png" alt="">
             </div>
         </div>
     </section>

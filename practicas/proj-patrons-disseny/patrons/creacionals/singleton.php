@@ -35,6 +35,36 @@
 
                     El término "singleton" se ha vuelto tan común que a menudo se usa para patrones que solo abordan uno de estos aspectos, aunque técnicamente no sean Singletons completos.
                 </p>
+                <h2 class="mt-5">Solución</h2>
+                <div>
+                    <p>La solución del patrón Singleton se basa en dos elementos clave:</p>
+
+                    <ol>
+                        <li>
+                            <strong>Constructor privado:</strong> El constructor de la clase Singleton se declara como <code>private</code>. Esto impide que otras clases puedan crear instancias directamente usando el operador <code>new</code>.
+                        </li>
+                        <li>
+                            <strong>Método estático de creación:</strong> Se implementa un método estático público que actúa como punto de acceso global para obtener la instancia única. Este método:
+                            <ul>
+                                <li>Crea una nueva instancia usando el constructor privado si aún no existe.</li>
+                                <li>Almacena esta instancia en un campo estático privado.</li>
+                                <li>Devuelve la instancia almacenada en todas las llamadas subsecuentes.</li>
+                            </ul>
+                        </li>
+                    </ol>
+
+                    <p>Esta implementación garantiza que:</p>
+
+                    <ul>
+                        <li>Solo exista una instancia de la clase Singleton.</li>
+                        <li>Esta instancia sea accesible globalmente a través del método estático.</li>
+                        <li>La instancia se cree solo cuando sea necesaria (inicialización perezosa).</li>
+                    </ul>
+
+                    <h2>Analogía</h2>
+                    <p>La analogía del gobierno ilustra bien este concepto: así como un país tiene un solo gobierno oficial accesible globalmente, una aplicación tiene una sola instancia de Singleton accesible desde cualquier parte del código.</p>
+                    <img src="https://refactoring.guru/images/patterns/diagrams/singleton/structure-es.png" alt="">
+                </div>
             </div>
         </div>
     </section>

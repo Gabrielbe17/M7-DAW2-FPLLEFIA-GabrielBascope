@@ -26,6 +26,30 @@
                 <br><br>
                 El problema está en que para acoplar más vehiculos el código acabaria sucio, pues si todo está en la clase Camión, tendrias que ir añadiendo condicionales que controlasen esos vehiculos, cambiando constantemente el funcionamiento de la aplicación.
             </p>
+
+            <h2 class="mt-5">Solución</h2>
+            <div>
+                <p>El patrón Factory Method propone una solución para crear objetos sin especificar la clase exacta del objeto que se creará. Los elementos clave de esta solución son:</p>
+
+                <ol>
+                    <li><strong>Método fábrica:</strong> En lugar de usar directamente el operador <code>new</code>, se utiliza un método especial (el método fábrica) para crear objetos.</li>
+
+                    <li><strong>Flexibilidad en subclases:</strong> Las subclases pueden sobrescribir el método fábrica para cambiar la clase de los objetos que se crean.</li>
+
+                    <li><strong>Interfaz común:</strong> Los productos creados por el método fábrica deben compartir una interfaz o clase base común.</li>
+
+                    <li><strong>Jerarquía de productos:</strong> Se crea una estructura donde todos los productos siguen la misma interfaz, pero la implementan de manera diferente.</li>
+
+                    <li><strong>Desacoplamiento del código cliente:</strong> El código que usa el método fábrica trabaja con los productos a través de su interfaz común, sin necesidad de conocer las clases concretas.</li>
+                </ol>
+
+                <p>Esta estructura permite una mayor flexibilidad en la creación de objetos y facilita la extensión del código para incluir nuevos tipos de productos sin modificar el código existente.</p>
+
+                <h2>Ejemplo</h2>
+                <p>En un sistema de logística, tanto <code>Camión</code> como <code>Barco</code> implementan la interfaz <code>Transporte</code>. Los métodos fábrica en <code>LogísticaTerrestre</code> y <code>LogísticaMarítima</code> crean los objetos específicos, pero el código cliente los trata uniformemente como <code>Transporte</code>.</p>
+            
+                <img src="https://refactoring.guru/images/patterns/diagrams/factory-method/example.png" alt="">
+            </div>
         </div>
     </section>
 </body>

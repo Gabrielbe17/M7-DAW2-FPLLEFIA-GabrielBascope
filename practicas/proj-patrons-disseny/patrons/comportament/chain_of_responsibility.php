@@ -29,6 +29,30 @@
                 </p>
                 <img src="https://refactoring.guru/images/patterns/diagrams/chain-of-responsibility/problem1-es.png">
             </div>
+            <h2 class="mt-5">Solución</h2>
+            <div>
+                <p>El patrón Chain of Responsibility propone una solución que transforma comportamientos específicos en objetos independientes llamados manejadores. La estructura y funcionamiento de esta solución son los siguientes:</p>
+                
+                <ol>
+                    <li ><strong>Manejadores autónomos</strong>: Cada comportamiento o comprobación se encapsula en objetos independientes, con un método único para realizar la tarea específica.</li>
+                
+                    <li><strong>Encadenamiento</strong>: Los manejadores se vinculan entre sí formando una cadena. Cada manejador tiene una referencia al siguiente en la cadena.</li>
+                
+                    <li><strong>Propagación de solicitudes</strong>: Cuando un manejador recibe una solicitud, la procesa y luego la pasa al siguiente manejador en la cadena.</li>
+                
+                    <li><strong>Control de flujo</strong>: Un manejador puede decidir detener el procesamiento y no pasar la solicitud al siguiente eslabón.</li>
+                
+                    <li><strong>Flexibilidad</strong>: La cadena puede formarse dinámicamente, permitiendo añadir o quitar manejadores según sea necesario.</li>
+                
+                    <li><strong>Interfaz común</strong>: Todos los manejadores implementan la misma interfaz, lo que permite intercambiarlos y componerlos libremente.</li>
+                
+                    <li><strong>Desacoplamiento</strong>: El cliente que inicia la solicitud no necesita conocer la estructura de la cadena ni los manejadores específicos.</li>
+                </ol>
+                
+                <p>Esta solución es particularmente útil en sistemas donde una solicitud debe pasar por múltiples etapas de procesamiento, como en sistemas de pedidos o en el manejo de eventos en interfaces gráficas de usuario.</p>
+            
+                <img src="https://refactoring.guru/images/patterns/diagrams/chain-of-responsibility/solution1-es.png" alt="">
+            </div>
         </div>
     </section>
 </body>

@@ -24,10 +24,35 @@
                 <p>
                     El uso del patrón Composite sólo tiene sentido cuando el modelo central de tu aplicación puede representarse en forma de árbol.
                 </p>
-                <p>Por ejemplo, imagina que tienes dos tipos de objetos: Productos y Cajas. Una Caja puede contener varios Productos así como cierto número de Cajas más pequeñas. Estas Cajas pequeñas también pueden contener algunos Productos o incluso Cajas más pequeñas, y así sucesivamente.</p>
+                <p>  Por ejemplo, imagina que tienes dos tipos de objetos: <code>Productos</code> y <code>Cajas</code>. Una <code>Caja</code> puede contener varios <code>Productos</code> así como cierto número de <code>Cajas</code> más pequeñas. Estas <code>Cajas</code> pequeñas también pueden contener algunos <code>Productos</code> o incluso <code>Cajas</code> más pequeñas, y así sucesivamente.</p>
                 <p>Digamos que decides crear un sistema de pedidos que utiliza estas clases. Los pedidos pueden contener productos sencillos sin envolver, así como cajas llenas de productos... y otras cajas. ¿Cómo determinarás el precio total de ese pedido?</p>
                 <img src="https://refactoring.guru/images/patterns/diagrams/composite/problem-es.png">
                 <br><br><p>Puedes intentar la solución directa: desenvolver todas las cajas, repasar todos los productos y calcular el total. Esto sería viable en el mundo real; pero en un programa no es tan fácil como ejecutar un bucle. Tienes que conocer de antemano las clases de Productos y Cajas a iterar, el nivel de anidación de las cajas y otros detalles desagradables. Todo esto provoca que la solución directa sea demasiado complicada, o incluso imposible.</p>
+            </div>
+
+            <h2 class="mt-5">Solución</h2>
+            <div>
+                <p>
+                    El patrón Composite sugiere trabajar con <code>Productos</code> y <code>Cajas</code> a través de una interfaz común que declara un método para calcular el precio total. Este método funciona de la siguiente manera:
+                </p>
+
+                <ul>
+                    <li>Para un <code>Producto</code>: Simplemente devuelve el precio del producto.</li>
+                    <li>Para una <code>Caja</code>: 
+                        <ul>
+                            <li>Recorre cada artículo dentro de la caja.</li>
+                            <li>Pregunta el precio de cada artículo.</li>
+                            <li>Suma todos los precios para obtener el total de la caja.</li>
+                            <li>Si contiene cajas más pequeñas, el proceso se repite recursivamente.</li>
+                            <li>Puede añadir costos adicionales (como empaquetado) al precio final.</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <p>
+                    La ventaja principal de esta solución es que permite tratar de manera uniforme a objetos individuales y compuestos. No es necesario preocuparse por las clases concretas de los objetos en el árbol. Cuando se invoca un método, los objetos pasan la solicitud a lo largo de la estructura de árbol automáticamente.
+                </p>
+                <img src="https://refactoring.guru/images/patterns/diagrams/composite/example.png" alt="">
             </div>
         </div>
     </section>

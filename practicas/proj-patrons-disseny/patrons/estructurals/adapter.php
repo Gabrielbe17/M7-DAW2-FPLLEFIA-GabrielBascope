@@ -28,6 +28,34 @@
                 <img src="https://refactoring.guru/images/patterns/diagrams/adapter/problem-es.png">
                 <br><br><p>Podrías cambiar la biblioteca para que funcione con XML. Sin embargo, esto podría descomponer parte del código existente que depende de la biblioteca. Y, lo que es peor, podrías no tener siquiera acceso al código fuente de la biblioteca, lo que hace imposible esta solución.</p>
             </div>
+
+            <h2 class="mt-5">Solución</h2>
+            <div>
+                <p>La solución propuesta por el patrón Adapter se basa en crear un objeto intermediario llamado "adaptador" que permite la comunicación entre interfaces incompatibles. Los elementos clave de esta solución son:</p>
+
+                <ol>
+                    <li><strong>Objeto adaptador:</strong> Es un objeto especial que convierte la interfaz de un objeto para que otro objeto pueda entenderla.</li>
+                    <li><strong>Envoltura:</strong> El adaptador envuelve uno de los objetos, ocultando la complejidad de la conversión que ocurre internamente.</li>
+                    <li><strong>Interfaz compatible:</strong> El adaptador implementa una interfaz que es compatible con uno de los objetos existentes.</li>
+                    <li><strong>Conversión de llamadas:</strong> Cuando el adaptador recibe una llamada, la traduce y la pasa al objeto adaptado en el formato que este espera.</li>
+                    <li><strong>Bidireccionalidad:</strong> En algunos casos, se pueden crear adaptadores que convierten llamadas en ambas direcciones.</li>
+                </ol>
+
+                <img src="https://refactoring.guru/images/patterns/diagrams/adapter/solution-es.png" alt="">
+
+                <h3>Ejemplo: Aplicación del mercado de valores</h2>
+                <p>En el ejemplo de la aplicación del mercado de valores, la solución propone:</p>
+                <ol>
+                    <li>Crear adaptadores de XML a JSON para cada clase de la biblioteca de análisis.</li>
+                    <li>Ajustar el código para que se comunique con la biblioteca solo a través de estos adaptadores.</li>
+                    <li>Los adaptadores traducen los datos XML entrantes a estructuras JSON.</li>
+                    <li>Luego, pasan las llamadas a los métodos apropiados de los objetos de análisis envueltos.</li>
+                </ol>
+
+                <p>Esta solución permite que sistemas con formatos de datos incompatibles (XML y JSON en este caso) puedan trabajar juntos sin modificar su código original.</p>
+                <br>
+                <img src="https://refactoring.guru/images/patterns/diagrams/adapter/structure-object-adapter.png" alt="">
+            </div>
         </div>
     </section>
 </body>

@@ -22,10 +22,31 @@
             <h2 class="mt-5">Problema</h2>
             <div>
                 <p>
-                Digamos que tienes una clase geométrica Forma con un par de subclases: Círculo y Cuadrado. Deseas extender esta jerarquía de clase para que incorpore colores, por lo que planeas crear las subclases de forma Rojo y Azul. Sin embargo, como ya tienes dos subclases, tienes que crear cuatro combinaciones de clase, como CírculoAzul y CuadradoRojo.
+                Digamos que tienes una clase geométrica <code>Forma</code> con un par de subclases: <code>Círculo</code> y <code>Cuadrado</code>. Deseas extender esta jerarquía de clase para que incorpore colores, por lo que planeas crear las subclases de forma <code>Rojo</code> y <code>Azul</code>. Sin embargo, como ya tienes dos subclases, tienes que crear cuatro combinaciones de clase, como <code>CírculoAzul</code> y <code>CuadradoRojo</code>.
                 </p>
                 <img src="https://refactoring.guru/images/patterns/diagrams/bridge/problem-es.png">
                 <br><br><p>Añadir nuevos tipos de forma y color a la jerarquía hará que ésta crezca exponencialmente. Por ejemplo, para añadir una forma de triángulo deberás introducir dos subclases, una para cada color. Y, después, para añadir un nuevo color habrá que crear tres subclases, una para cada tipo de forma. Cuanto más avancemos, peor será.</p>
+            </div>
+            <h2 class="mt-5">Solución</h2>
+            <div>
+                <p>La solución propuesta por el patrón Bridge aborda el problema de la explosión de clases que ocurre cuando se intenta extender una clase en dos dimensiones independientes (en este caso, forma y color). Los elementos clave de esta solución son:</p>
+
+                <ol>
+                    <li><strong>Separación de dimensiones:</strong> En lugar de usar herencia múltiple, el patrón Bridge separa las dimensiones en jerarquías de clases independientes.</li>
+                    <li><strong>Composición sobre herencia:</strong> Se utiliza la composición de objetos en lugar de la herencia para relacionar las dimensiones.</li>
+                    <li><strong>Creación de un "puente":</strong> Se establece una referencia en la clase principal (en este caso, <code>Forma</code>) que "apunta" a un objeto de la otra dimensión (<code>Color</code>).</li>
+                    <li><strong>Delegación de responsabilidades:</strong> La clase principal delega las operaciones específicas de la otra dimensión al objeto referenciado.</li>
+                </ol>
+
+                <h3>Ejemplo: Formas y Colores</h3>
+                <p>En el ejemplo dado:</p>
+
+                <ul>
+                    <li>Se crea una jerarquía separada para <code>Color</code> con subclases como <code>Rojo</code> y <code>Azul</code>.</li>
+                    <li>La clase <code>Forma</code> mantiene una referencia a un objeto <code>Color</code>.</li>
+                    <li><code>Forma</code> delega cualquier trabajo relacionado con el color al objeto <code>Color</code> vinculado.</li>
+                    <li>Esta estructura permite añadir nuevos colores o formas sin afectar la otra jerarquía.</li>
+                </ul>
             </div>
         </div>
     </section>
