@@ -95,7 +95,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h1 class="display-1 text-white font-weight-bold font-primary">Creative Agency</h1>
+        <h1 class="display-1 text-white font-weight-bold font-primary">Agencia Multimedia</h1>
       </div>
     </div>
   </div>
@@ -107,10 +107,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto text-center">
-        <h2 class="section-title">Our Services</h2>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-          labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat.</p>
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <p class="lead">Nos especializamos en ofrecer soluciones audiovisuales de alta calidad para una variedad de necesidades. Ya sea que estés buscando crear contenido impactante para tu empresa, capturar momentos especiales en tu evento, o alquilar equipo de última tecnología para tu próxima producción, estamos aquí para ayudarte. Nuestro equipo profesional está comprometido con ofrecerte resultados excepcionales, trabajando con la mejor tecnología disponible y con un enfoque personalizado para cada cliente.</p>
         <div class="section-border"></div>
       </div>
     </div>
