@@ -46,7 +46,7 @@
 
 <header class="navigation fixed-top">
   <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Egen"></a>
+    <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="Egen"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
       aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -55,34 +55,34 @@
     <div class="collapse navbar-collapse text-center" id="navigation">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link" href="index.php">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="about.html">About</a>
+          <a class="nav-link" href="about.php">About</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="services.html">Services</a>
+          <a class="nav-link" href="services.php">Services</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="blog.html">Blog</a>
+          <a class="nav-link" href="blog.php">Blog</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="portfolio.html">Portfolio</a>
+          <a class="nav-link" href="portfolio.php">Portfolio</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
           <div class="dropdown-menu">
-            <a class="dropdown-item" href="team.html">Team</a>
-            <a class="dropdown-item" href="team-single.html">Team Details</a>
-            <a class="dropdown-item" href="career.html">Career</a>
-            <a class="dropdown-item" href="career-single.html">Career Details</a>
-            <a class="dropdown-item" href="blog-single.html">Blog Details</a>
-            <a class="dropdown-item" href="pricing.html">Pricing</a></a>
-            <a class="dropdown-item" href="faqs.html">FAQ's</a>
+            <a class="dropdown-item" href="team.php">Team</a>
+            <a class="dropdown-item" href="team-single.php">Team Details</a>
+            <a class="dropdown-item" href="career.php">Career</a>
+            <a class="dropdown-item" href="career-single.php">Career Details</a>
+            <a class="dropdown-item" href="blog-single.php">Blog Details</a>
+            <a class="dropdown-item" href="pricing.php">Pricing</a></a>
+            <a class="dropdown-item" href="./faqs.php">FAQ's</a>
           </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="contact.html">Contact</a>
+          <a class="nav-link" href="contact.php">Contact</a>
         </li>
       </ul>
     </div>
@@ -237,7 +237,7 @@
         <div class="card hover-shadow">
           <img src="images/team/member-1.jpg" alt="team-member" class="card-img-top">
           <div class="card-body text-center position-relative zindex-1">
-            <h4><a class="text-dark" href="team-single.html">Sara Adams</a></h4>
+            <h4><a class="text-dark" href="team-single.php">Sara Adams</a></h4>
             <i>Designer</i>
           </div>
         </div>
@@ -246,7 +246,7 @@
         <div class="card hover-shadow">
           <img src="images/team/member-2.jpg" alt="team-member" class="card-img-top">
           <div class="card-body text-center position-relative zindex-1">
-            <h4><a class="text-dark" href="team-single.html">Tom Bills</a></h4>
+            <h4><a class="text-dark" href="team-single.php">Tom Bills</a></h4>
             <i>Developer</i>
           </div>
         </div>
@@ -255,7 +255,7 @@
         <div class="card hover-shadow">
           <img src="images/team/member-3.jpg" alt="team-member" class="card-img-top">
           <div class="card-body text-center position-relative zindex-1">
-            <h4><a class="text-dark" href="team-single.html">Anna Walle</a></h4>
+            <h4><a class="text-dark" href="team-single.php">Anna Walle</a></h4>
             <i>Manager</i>
           </div>
         </div>
@@ -285,7 +285,7 @@
           incididunt
           ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
           aliquip ex ea commodo consequat.</p>
-        <a href="about.html" class="btn btn-primary">Read More</a>
+        <a href="about.php" class="btn btn-primary">Read More</a>
       </div>
       <div class="col-md-2 col-sm-4 col-4 text-right align-self-end">
         <a class="venobox" data-autoplay="true" data-vbtype="video"
@@ -365,7 +365,7 @@
     <div class="col-lg-8 offset-lg-1">
       <h2 class="text-gradient-primary">Let's Start With Us!</h2>
       <p class="h4 font-weight-bold text-white mb-4">Lorem ipsum dolor sit amet, magna habemus ius ad</p>
-      <a href="contact.html" class="btn btn-lg btn-primary">Let’s talk</a>
+      <a href="contact.php" class="btn btn-lg btn-primary">Let’s talk</a>
     </div>
   </div>
 </div>
