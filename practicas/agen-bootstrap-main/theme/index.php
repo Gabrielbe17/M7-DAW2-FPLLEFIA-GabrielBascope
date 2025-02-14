@@ -118,11 +118,11 @@
           <div class="card-body text-center">
             <div class="position-relative">
               <i
-                class="icon-lg icon-box bg-gradient-primary rounded-circle ti-palette mb-5 d-inline-block text-white"></i>
-              <i class="icon-lg icon-watermark text-white ti-palette"></i>
+                class="icon-lg icon-box bg-gradient-primary rounded-circle ti-announcement mb-5 d-inline-block text-white"></i>
+              <i class="icon-lg icon-watermark text-white ti-announcement"></i>
             </div>
-            <h4 class="mb-4">Design</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
+            <h4 class="mb-4">Promociones</h4>
+            <p>Creamos videos para dar a conocer tu marca.</p>
           </div>
         </div>
       </div>
@@ -134,8 +134,8 @@
                 class="icon-lg icon-box bg-gradient-primary rounded-circle ti-dashboard mb-5 d-inline-block text-white"></i>
               <i class="icon-lg icon-watermark text-white ti-dashboard"></i>
             </div>
-            <h4 class="mb-4">Development</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
+            <h4 class="mb-4">Animación</h4>
+            <p>Creamos animaciones adaptandono a la estética de tu empresa.</p>
           </div>
         </div>
       </div>
@@ -144,11 +144,11 @@
           <div class="card-body text-center">
             <div class="position-relative">
               <i
-                class="icon-lg icon-box bg-gradient-primary rounded-circle ti-announcement mb-5 d-inline-block text-white"></i>
-              <i class="icon-lg icon-watermark text-white ti-announcement"></i>
+                class="icon-lg icon-box bg-gradient-primary rounded-circle ti-palette mb-5 d-inline-block text-white"></i>
+              <i class="icon-lg icon-watermark text-white ti-palette"></i>
             </div>
-            <h4 class="mb-4">Marketing</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
+            <h4 class="mb-4">Edición</h4>
+            <p>Grabamos y Editamos videos de gran calidad.</p>
           </div>
         </div>
       </div>
@@ -172,7 +172,7 @@
           <div class="col-lg-7 offset-lg-1">
             <div class="row">
               <div class="col-12">
-                <h2 class="text-white">We know What Bait to Use</h2>
+                <h2 class="text-white">Sabemos qué herramientas usar</h2>
                 <div class="section-border ml-0"></div>
               </div>
               <div class="col-md-6 mb-4">
