@@ -1,3 +1,15 @@
+<?php
+  require_once './config/config.php';
+
+
+  // query 
+  $result = $mysqli->query("SELECT * FROM Testimonials ORDER BY id DESC");
+  print_r($result);
+
+  
+?>
+
+
 <!DOCTYPE html>
 
 <!--
