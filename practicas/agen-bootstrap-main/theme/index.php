@@ -3,9 +3,16 @@
 
 
   // query 
-  $result = $mysqli->query("SELECT * FROM Testimonials ORDER BY id DESC");
-  print_r($result);
+  echo "<br>";
+  $result = $mysqli->query("SELECT * FROM TESTIMONIALS ORDER BY id DESC");
+  // print_r($result);
 
+
+  // convertir obeto result a array asociativo
+  $testimonials = $result->fetch_all(MYSQLI_ASSOC);
+
+  // $testimonials formateado
+  // print("<pre>".print_r($testimonials,true)."</pre>");
   
 ?>
 
@@ -57,6 +64,12 @@
   
 
 <header class="navigation fixed-top">
+  <div>
+    <?php foreach ($testimonials as $testimonial) {
+        echo $testimonial['name'];
+    } 
+    ?> 
+  </div>
   <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="Egen"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
