@@ -4,15 +4,13 @@
 
   // query 
   echo "<br>";
-  $result = $mysqli->query("SELECT * FROM TESTIMONIALS ORDER BY id DESC");
+  $result = $mysqli->query("SELECT * FROM PROJECTS ORDER BY id DESC");
   // print_r($result);
 
 
   // convertir obeto result a array asociativo
-  $testimonials = $result->fetch_all(MYSQLI_ASSOC);
+  $projects = $result->fetch_all(MYSQLI_ASSOC);
 
-  // $testimonials formateado
-  // print("<pre>".print_r($testimonials,true)."</pre>");
   
 ?>
 
@@ -64,12 +62,6 @@
   
 
 <header class="navigation fixed-top">
-  <div>
-    <?php foreach ($testimonials as $testimonial) {
-        echo $testimonial['name'];
-    } 
-    ?> 
-  </div>
   <nav class="navbar navbar-expand-lg navbar-dark">
     <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="Egen"></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
@@ -325,13 +317,34 @@
   <div class="container-fluid px-0">
     <div class="row">
       <div class="col-lg-10 mx-auto text-center">
-        <h2>Our Feature Works</h2>
+        <h2>Nuestros trabajos</h2>
         <div class="section-border"></div>
       </div>
     </div>
 
     <div class="row no-gutters shuffle-wrapper">
-      <div class="col-lg-4 col-md-6 shuffle-item">
+      <!-- <div class="col-lg-4 col-md-6 shuffle-item">
+        <div class="project-item">
+          <img src="images/project/project-1.jpg" alt="project-image" class="img-fluid w-100">
+          <div class="project-hover bg-secondary px-4 py-3">
+            <a href="#" class="text-white h4">Project title</a>
+            <a href="#"><i class="ti-link icon-xs text-white"></i></a>
+          </div>
+        </div>
+      </div> -->
+      <?php foreach ($projects as $project) {
+        echo "<div class='col-lg-4 col-md-6 shuffle-item'>
+            <div class='project-item'>
+              <img src='images/project/project-1.jpg' alt='project-image' class='img-fluid w-100'>
+              <div class='project-hover bg-secondary px-4 py-3'>
+                <a href='#' class='text-white h4'>{$project['title']}</a>
+                <a href={$project['url']}><i class='ti-link icon-xs text-white'></i></a>
+              </div>
+            </div>
+        </div>";
+      } ?>
+
+      <!-- <div class="col-lg-4 col-md-6 shuffle-item">
         <div class="project-item">
           <img src="images/project/project-1.jpg" alt="project-image" class="img-fluid w-100">
           <div class="project-hover bg-secondary px-4 py-3">
@@ -375,7 +388,7 @@
             <a href="#"><i class="ti-link icon-xs text-white"></i></a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
