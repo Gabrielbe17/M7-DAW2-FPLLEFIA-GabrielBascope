@@ -1,3 +1,76 @@
+<?php
+  require_once './config/config.php';
+  // obtener id de parametro url
+  if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+  }
+
+  
+  $resultSinglenew = $mysqli->query("SELECT * FROM NEWS WHERE id = $id");
+  $resultNews = $mysqli->query("SELECT * FROM NEWS ORDER BY newDate DESC LIMIT 3");
+
+  // obtener ultimas news
+  $singleNew = $resultSinglenew->fetch_all(MYSQLI_ASSOC);
+  $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
+  
+
+  // consulta para obtener todos los comentario y join con la tabla users para obtener datos del usuario
+  $comentariosResult = $mysqli->query("SELECT c.id id, c.description AS comment, c.newID, c.date AS comment_date, c.commentID, u.name AS user_name, u.picture AS user_picture FROM COMMENTS c JOIN USERS u ON c.userID = u.id WHERE c.newID = $id");
+
+  $comentarios = $comentariosResult->fetch_all(MYSQLI_ASSOC);
+
+
+ function mostrarComentarios() {
+    global $comentarios;
+    foreach ($comentarios as $comentario) {
+        if (is_null($comentario['commentID'])) {
+          echo "
+          <div class='media border-bottom py-4'>
+              <img src='{$comentario['user_picture']}' class='img-fluid align-self-start mr-3' alt=''>
+              <div class='media-body'>
+                  <h5 class='mb-0 text-secondary'>{$comentario['user_name']}</h5>
+                  <span class='mr-3'>{$comentario['comment_date']}</span>
+                  <a href='#' class='btn btn-transparent py-1 px-2'><i class='ti-share-alt'></i> Reply</a>
+                  <p>{$comentario['comment']}</p>";
+        }else{
+          // Buscar el comentario al que se responde
+          $comentarioPadre = null;
+          foreach ($comentarios as $posiblePadre) {
+              if ($posiblePadre['id'] == $comentario['commentID']) {
+                  $comentarioPadre = $posiblePadre;
+                  break;
+              }
+          }
+          
+          // var_dump($comentarioPadre)
+          if (!is_null($comentarioPadre)) {
+              echo "<div class='media border-bottom py-4'>
+                  <img src='{$comentarioPadre['user_picture']}' class='img-fluid align-self-start mr-3' alt=''>
+                  <div class='media-body'>
+                      <h5 class='mb-0 text-secondary'>{$comentarioPadre['user_name']}</h5>
+                      <span class='mr-3'>{$comentarioPadre['comment_date']}</span>
+                      <a href='#' class='btn btn-transparent py-1 px-2'><i class='ti-share-alt'></i> Reply</a>
+                      <p>{$comentarioPadre['comment']}</p>";
+          }
+          
+          // echo "<div class='ml-3 media my-5'>
+          //     <img src='{$comentario['user_picture']}' class='img-fluid align-self-start mr-3' alt=''>
+          //     <div class='media-body'>
+          //         <h5 class='mb-0 text-secondary'>{$comentario['user_name']}</h5>
+          //         <span class='mr-3'>{$comentario['comment_date']}</span>
+          //         <a href='#' class='btn btn-transparent py-1 px-2'><i class='ti-share-alt'></i> Reply</a>
+          //         <p>{$comentario['comment']}</p>
+          //     </div>
+          // </div>";
+        }
+
+        echo "
+            </div>
+        </div>";
+    }
+}
+?>
+
 <!DOCTYPE html>
 
 <!--
@@ -102,46 +175,16 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto">
-        <h3 class="font-tertiary mb-5">What should be the proper purpose of UI and UX design?</h3>
+        <h3 class="font-tertiary mb-5">
+          <?= $singleNew[0]['title']?>
+        </h3>
         <img src="images/blog/post-1.jpg" alt="post-thumb" class="img-fluid w-100 mb-3">
-        <p class="float-left mr-4">Post by Themefisher</p>
-        <p>May 26, 2017</p>
+        <!-- hacer join para obtener autor -->
+        <p class="float-left mr-4">Post by Admin</p>
+        <p><?= $singleNew[0]['newDate']?></p>
         <div class="content">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-            consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est.</p>
-          <strong>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-            et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-            ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-            fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.</strong>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-            consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
-            ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-            labore et dolore magnam aliquam quaerat voluptatem.</p>
-          <blockquote>Dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi
-            tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</blockquote>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-            anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
-            laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-            consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem
-            ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut
-            labore et dolore magnam aliquam quaerat voluptatem.</p>
+          <p class="font-weight-bold"><?=  $singleNew[0]['subtitle']?></p>
+          <p><?= $singleNew[0]['description']?></p>
         </div>
       </div>
     </div>
@@ -153,7 +196,7 @@
     <div class="row">
       <div class="col-lg-10 mx-auto">
         <div class="p-5 mb-4">
-          <div class="media border-bottom py-4">
+          <!-- <div class="media border-bottom py-4">
             <img src="images/user-1.jpg" class="img-fluid align-self-start mr-3" alt="">
             <div class="media-body">
               <h5 class="mb-0 text-secondary">Carole Marvin.</h5>
@@ -181,8 +224,10 @@
               <a href="#" class="btn btn-transparent py-1 px-2 "><i class="ti-share-alt"></i> Reply</a>
               <p>Ne erat velit invidunt his. Eum in dicta veniam interesset, harum fuisset te nam ea cu lupta
                 definitionem.</p>
+                
             </div>
-          </div>
+          </div> -->
+          <?php mostrarComentarios() ?>
         </div>
         <h4 class="mb-3 pb-3 text-secondary">Leave a Comment</h4>
         <form action="#" class="row">
@@ -214,39 +259,18 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <article class="card">
-          <img src="images/blog/post-1.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="#" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <article class="card">
-          <img src="images/blog/post-2.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="#" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <article class="card">
-          <img src="images/blog/post-3.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="#" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
+      <?php foreach ($latestNews as $new) {
+        echo "<div class='col-lg-4 col-md-6 mb-4 mb-lg-0'>
+            <article class='card'>
+              <img src='images/blog/post-1.jpg' alt='post-thumb' class='card-img-top mb-2'>
+              <div class='card-body p-0'>
+                <time>{$new['newDate']}</time>
+                <a href='blog-single' class='h4 card-title d-block my-3 text-dark hover-text-underline'>{$new['title']}</a>
+                <a href='blog-single.php?id={$new['id']}' class='btn btn-transparent'>Read more</a>
+              </div>
+            </article>
+          </div>";
+      } ?>
     </div>
   </div>
 </section>

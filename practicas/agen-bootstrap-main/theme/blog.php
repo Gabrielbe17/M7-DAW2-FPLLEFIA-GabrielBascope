@@ -6,6 +6,11 @@
 
   $news = $newsResult->fetch_all(MYSQLI_ASSOC);
 
+
+  // para Crear la pàgina de detall per a cada notícia amb la possibilitat de veure els comentaris associats: 
+    // mostrar id en el <a></a>
+
+
 ?>
 <!DOCTYPE html>
 
@@ -118,110 +123,11 @@
                 <div class='card-body p-0'>
                   <time>{$new['newDate']}</time>
                   <a href='blog-single' class='h4 card-title d-block my-3 text-dark hover-text-underline'>{$new['title']}</a>
-                  <a href='#' class='btn btn-transparent'>Read more</a>
+                  <a href='../blog-single.php?id={$new['id']}' class='btn btn-transparent'>Read more</a>
                 </div>
               </article>
             </div>";
         } ?>
-      <!-- <div class="col-lg-4 col-md-6 mb-4">
-        <article class="card">
-          <img src="images/blog/post-1.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single.php" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <article class="card">
-          <img src="images/blog/post-2.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single.php" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <article class="card">
-          <img src="images/blog/post-3.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single.php" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <article class="card">
-          <img src="images/blog/post-1.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single.php" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <article class="card">
-          <img src="images/blog/post-2.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single.php" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <article class="card">
-          <img src="images/blog/post-3.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single.php" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <article class="card">
-          <img src="images/blog/post-1.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single.php" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <article class="card">
-          <img src="images/blog/post-2.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single.php" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4">
-        <article class="card">
-          <img src="images/blog/post-3.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single.php" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="blog-single.php" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div> -->
     </div>
   </div>
 </section>

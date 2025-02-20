@@ -506,7 +506,7 @@
               <div class='card-body p-0'>
                 <time>{$new['newDate']}</time>
                 <a href='blog-single' class='h4 card-title d-block my-3 text-dark hover-text-underline'>{$new['title']}</a>
-                <a href='#' class='btn btn-transparent'>Read more</a>
+                <a href='blog-single.php?id={$new['id']}' class='btn btn-transparent'>Read more</a>
               </div>
             </article>
           </div>";
