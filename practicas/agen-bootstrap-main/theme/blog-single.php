@@ -5,7 +5,6 @@
     $id = $_GET['id'];
   }
 
-  
   $resultSinglenew = $mysqli->query("SELECT * FROM NEWS WHERE id = $id");
   $resultNews = $mysqli->query("SELECT * FROM NEWS ORDER BY newDate DESC LIMIT 3");
 
@@ -20,55 +19,40 @@
   $comentarios = $comentariosResult->fetch_all(MYSQLI_ASSOC);
 
 
- function mostrarComentarios() {
+  function mostrarComentarios() {
     global $comentarios;
     foreach ($comentarios as $comentario) {
         if (is_null($comentario['commentID'])) {
-          echo "
-          <div class='media border-bottom py-4'>
-              <img src='{$comentario['user_picture']}' class='img-fluid align-self-start mr-3' alt=''>
-              <div class='media-body'>
-                  <h5 class='mb-0 text-secondary'>{$comentario['user_name']}</h5>
-                  <span class='mr-3'>{$comentario['comment_date']}</span>
-                  <a href='#' class='btn btn-transparent py-1 px-2'><i class='ti-share-alt'></i> Reply</a>
-                  <p>{$comentario['comment']}</p>";
-        }else{
-          // Buscar el comentario al que se responde
-          $comentarioPadre = null;
-          foreach ($comentarios as $posiblePadre) {
-              if ($posiblePadre['id'] == $comentario['commentID']) {
-                  $comentarioPadre = $posiblePadre;
-                  break;
-              }
-          }
-          
-          // var_dump($comentarioPadre)
-          if (!is_null($comentarioPadre)) {
-              echo "<div class='media border-bottom py-4'>
-                  <img src='{$comentarioPadre['user_picture']}' class='img-fluid align-self-start mr-3' alt=''>
-                  <div class='media-body'>
-                      <h5 class='mb-0 text-secondary'>{$comentarioPadre['user_name']}</h5>
-                      <span class='mr-3'>{$comentarioPadre['comment_date']}</span>
-                      <a href='#' class='btn btn-transparent py-1 px-2'><i class='ti-share-alt'></i> Reply</a>
-                      <p>{$comentarioPadre['comment']}</p>";
-          }
-          
-          // echo "<div class='ml-3 media my-5'>
-          //     <img src='{$comentario['user_picture']}' class='img-fluid align-self-start mr-3' alt=''>
-          //     <div class='media-body'>
-          //         <h5 class='mb-0 text-secondary'>{$comentario['user_name']}</h5>
-          //         <span class='mr-3'>{$comentario['comment_date']}</span>
-          //         <a href='#' class='btn btn-transparent py-1 px-2'><i class='ti-share-alt'></i> Reply</a>
-          //         <p>{$comentario['comment']}</p>
-          //     </div>
-          // </div>";
-        }
+            echo "
+            <div class='media border-bottom py-4'>
+                <img src='{$comentario['user_picture']}' class='img-fluid align-self-start mr-3' alt=''>
+                <div class='media-body'>
+                    <h5 class='mb-0 text-secondary'>{$comentario['user_name']}</h5>
+                    <span class='mr-3'>{$comentario['comment_date']}</span>
+                    <a href='#' class='btn btn-transparent py-1 px-2'><i class='ti-share-alt'></i> Reply</a>
+                    <p>{$comentario['comment']}</p>";
 
-        echo "
-            </div>
-        </div>";
+            foreach ($comentarios as $comentarioInner) {
+                if ($comentarioInner['commentID'] == $comentario['id']) {
+                    echo "<div class='media my-4 pl-4'>
+                    <img src='{$comentarioInner['user_picture']}' class='img-fluid align-self-start mr-3' alt=''>
+                    <div class='media-body'>
+                        <h5 class='mb-0 text-secondary'>{$comentarioInner['user_name']}</h5>
+                        <span class='mr-3'>{$comentarioInner['comment_date']}</span>
+                        <a href='#' class='btn btn-transparent py-1 px-2'><i class='ti-share-alt'></i> Reply</a>
+                        <p>{$comentarioInner['comment']}</p>
+                    </div>
+                    </div>";
+                }
+            }
+
+            echo "
+                </div>
+            </div>";
+        }
     }
 }
+
 ?>
 
 <!DOCTYPE html>
