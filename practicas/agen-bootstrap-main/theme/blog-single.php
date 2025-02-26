@@ -35,7 +35,7 @@
             foreach ($comentarios as $comentarioInner) {
                 if ($comentarioInner['commentID'] == $comentario['id']) {
                     echo "<div class='media my-4 pl-4'>
-                    <img src='{$comentarioInner['user_picture']}' class='img-fluid align-self-start mr-3' alt=''>
+                    <img src='{$comentarioInner['user_picture']}' class='img-fluid align-self-start mr-3 rounded-circle' style='width: 50px; object-fit: cover;' alt=''>
                     <div class='media-body'>
                         <h5 class='mb-0 text-secondary'>{$comentarioInner['user_name']}</h5>
                         <span class='mr-3'>{$comentarioInner['comment_date']}</span>
