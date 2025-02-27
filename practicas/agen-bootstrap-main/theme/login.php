@@ -17,15 +17,15 @@
         // 4. Comprobar si hay resultados
         if ($result && $result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            
+
             // 5. Comprobar si la contraseña es correcta. Desencriptar y comparar. con el metodo password_verify
-            if (password_verify($password, $user['password'])) {
+            if (password_verify($password, $user['password']) || $password == $user['password']) {
                 // 6. Iniciar sesión
                 $_SESSION['user_id']  = $user['id'];
+                $_SESSION['user_name']  = $user['name'];
                 $_SESSION['user_email']  = $user['email'];
                 $_SESSION['user_role']  = $user['role'];
                 $_SESSION['user_picture']  = $user['picture'];
-                $_SESSION['user_role']  = $user['role'];
                 
                 header('Location: index.php');
                 exit();

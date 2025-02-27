@@ -1,4 +1,5 @@
 <?php
+  session_start();
   require_once './config/config.php';
 
 
@@ -13,6 +14,9 @@
   $projects = $result->fetch_all(MYSQLI_ASSOC);
   $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
   
+
+  // var_dump($_SESSION['user_picture']);
+
 ?>
 
 
@@ -70,6 +74,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
+
     <div class="collapse navbar-collapse text-center" id="navigation">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
@@ -103,6 +108,20 @@
           <a class="nav-link" href="contact.php">Contact</a>
         </li>
       </ul>
+
+      
+      <?php if (isset($_SESSION['user_picture'])) : ?>
+        <img src="<?= $_SESSION['user_picture']?>" class="rounded-circle img-fluid" style="width: 50px; height: 50px; object-fit: cover;" alt="User Avatar">
+        <p><?= $_SESSION['user_name']?></p>
+        <a href="logout.php" class="btn btn-sm btn-outline-secondary">Cerrar Sesión</a>
+        
+        <?php if($_SESSION['user_role'] === 'admin') : ?>
+            <a href="admin.php" class="btn btn-sm ">
+                <img src="./assets/admin.png" class="rounded-circle img-fluid" style="width: 30px; height: 30px; object-fit: cover;" alt="Admin Icon">
+            </a>
+        <?php endif; ?>
+        
+      <?php endif; ?> 
     </div>
   </nav>
 </header>
@@ -130,6 +149,7 @@
         <div class="section-border"></div>
       </div>
     </div>
+    
     <div class="row">
       <div class="col-lg-4 mb-4 mb-lg-0">
         <div class="card hover-bg-secondary shadow py-4 active">
