@@ -25,7 +25,7 @@
                 $_SESSION['user_name']  = $user['name'];
                 $_SESSION['user_email']  = $user['email'];
                 $_SESSION['user_role']  = $user['role'];
-                $_SESSION['user_picture']  = $user['picture'];
+                $_SESSION['user_picture']  = $user['picture'];  
                 
                 header('Location: index.php');
                 exit();
@@ -46,19 +46,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
 </head>
-<body>
-    <h1>Inicio de Sesión</h1>
-    <form action="" method="POST">
-
-        <label for="email">Email: </label>
-        <input type="email" id="email" name="email" required><br><br>
-        
-        <label for="password">Contraseña: </label>
-        <input type="password" id="password" name="password" required><br><br>
-        
-        
-        <input type="submit" value="Iniciar Sesión">
-    </form>
+<body class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div>
+        <h1>Inicia Sesión</h1>
+        <form action="" method="POST" class="d-flex flex-column">
+    
+            <div class="d-flex flex-column">
+                <label for="email">Email: </label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="d-flex flex-column mb-3">
+                <label for="password">Contraseña: </label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <input type="submit" value="Iniciar Sesión" class="btn btn-primary">
+            <a href="register.php" class="text-center">o regístrate</a>
+        </form>
+    </div>
 </body>
 </html>
