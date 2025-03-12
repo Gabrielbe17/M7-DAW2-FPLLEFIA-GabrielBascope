@@ -1,97 +1,177 @@
 <?php
-    session_start();
-    require_once('./config/config.php');
+session_start();
+require_once('./config/config.php');
 
-    if ($_SESSION['user_role'] !== 'admin') {
-        header('Location: index.php');
-        exit();
-    }
+if ($_SESSION['user_role'] !== 'admin') {
+    header('Location: index.php');
+    exit();
+}
 
-    function mostrarVista() {
-        global $mysqli;
-        if (isset($_GET['page'])) {
-            $selectedPage = $_GET['page'];
+$añadirFormInputs = [
+    "users" => [
+        ["type" => "text", "name" => "nombre", "label" => "Nombre", "required" => true],
+        ["type" => "email", "name" => "email", "label" => "Email", "required" => true],
+        ["type" => "password", "name" => "contraseña", "label" => "Contraseña", "required" => true],
+        ["type" => "select", "name" => "rol", "label" => "Rol", "options" => ["admin", "user"], "required" => true],
+        ["type" => "file", "name" => "imagen", "label" => "Imagen", "required" => false]
+    ],
+    "news" => [
+        ["type" => "text", "name" => "titulo", "label" => "Título", "required" => true],
+        ["type" => "textarea", "name" => "descripcion", "label" => "Descripción", "required" => true],
+        ["type" => "text", "name" => "subtitulo", "label" => "Subtítulo", "required" => false],
+        ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
+    ],
+    "portfolio" => [
+        ["type" => "text", "name" => "titulo", "label" => "Título", "required" => true],
+        ["type" => "textarea", "name" => "descripcion", "label" => "Descripción", "required" => true],
+        ["type" => "file", "name" => "miniatura", "label" => "Miniatura", "required" => true],
+        ["type" => "url", "name" => "url", "label" => "URL", "required" => true]
+    ],
+    "testimonials" => [
+        ["type" => "text", "name" => "nombre", "label" => "Nombre", "required" => true],
+        ["type" => "text", "name" => "apellidos", "label" => "Apellidos", "required" => true],
+        ["type" => "textarea", "name" => "descripcion", "label" => "Descripción", "required" => true],
+        ["type" => "number", "name" => "puntuacion", "label" => "Puntuación", "min" => 1, "max" => 5, "required" => true],
+        ["type" => "file", "name" => "imagen", "label" => "Imagen", "required" => false],
+        ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
+    ],
+    "comments" => [
+        ["type" => "textarea", "name" => "comentario", "label" => "Comentario", "required" => true],
+        ["type" => "number", "name" => "id_usuario", "label" => "ID Usuario", "required" => true],
+        ["type" => "number", "name" => "id_noticia", "label" => "ID Noticia", "required" => true],
+        ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
+    ],
+    "faqs" => [
+        ["type" => "text", "name" => "pregunta", "label" => "Pregunta Frecuente", "required" => true],
+        ["type" => "textarea", "name" => "respuesta", "label" => "Respuesta Breve", "required" => true],
+        ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
+    ],
+];
 
-            // Encabezado común
-            $header = '<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                            <h1 class="h2">' . obtenerTitulo($selectedPage) . '</h1>
-                            <button type="button" class="btn btn-success">
-                                <i class="bi bi-plus-circle"></i> Añadir
-                            </button>
-                    </div>';
 
-            // Contenido de la tabla según el caso
-            switch ($selectedPage) {
-                case 'users':
-                    $columnas = ['#', 'Nombre', 'Email', 'Contraseña', 'Rol', 'Fecha', 'Imagen', 'Acciones'];
+function mostrarVista()
+{
+    global $mysqli;
+    if (isset($_GET['page'])) {
+        $selectedPage = $_GET['page'];
 
-                    $result = $mysqli->query("SELECT * FROM USERS");
-                    $filas = $result->fetch_all(MYSQLI_ASSOC);
+        // Encabezado común
+        $header = '<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+             <h1 class="h2">' . obtenerTitulo($selectedPage) . '</h1>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
+                <i class="bi bi-plus-circle"></i> Añadir
+            </button>
+        </div>
 
-                    break;
+    <!-- Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addModalLabel">' . obtenerTitulo($selectedPage) . '</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form id="addForm" action="agregar.php" method="POST">
+                <input type="hidden" name="tabla" value="' . $selectedPage . '">
 
-                case 'news':
-                    $columnas = ['#', 'Título', 'Descripción', 'Subtitulo', 'Fecha', 'Acciones'];
-                    $result = $mysqli->query("SELECT * FROM NEWS");
-                    $filas = $result->fetch_all(MYSQLI_ASSOC);
+                
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="tel" class="form-control" id="telefono" name="telefono">
+                </div>
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            <button type="submit" form="addForm" class="btn btn-primary">Guardar</button>
+        </div>
+        </div>
+    </div>
+    </div>';
 
-                    break;
 
-                case 'portfolio':
-                    $columnas = ['#', 'Título', 'Descripción', 'Miniatura', 'URL', 'Acciones'];
-                    $result = $mysqli->query("SELECT * FROM PROJECTS");
-                    $filas = $result->fetch_all(MYSQLI_ASSOC);
-                    break;
+        // Contenido de la tabla según el caso
+        switch ($selectedPage) {
+            case 'users':
+                $columnas = ['#', 'Nombre', 'Email', 'Contraseña', 'Rol', 'Fecha', 'Imagen', 'Acciones'];
 
-                case 'testimonials':
-                    $columnas = ['#', ' Nombre', 'Apellidos', 'Descripción', 'Puntuación', 'Imagen', 'Fecha', 'Acciones'];
-                    $result = $mysqli->query("SELECT * FROM TESTIMONIALS");
-                    $filas = $result->fetch_all(MYSQLI_ASSOC);
-                    break;
+                $result = $mysqli->query("SELECT * FROM USERS");
+                $filas = $result->fetch_all(MYSQLI_ASSOC);
 
-                case 'comments':
-                    $columnas = ['#', 'Comentario', 'ID Usuario', 'ID Notícia', 'Fecha', 'CommentID', 'Acciones'];
-                    $result = $mysqli->query("SELECT * FROM COMMENTS");
-                    $filas = $result->fetch_all(MYSQLI_ASSOC);
-                    break;
+                break;
 
-                case 'faqs':
-                    $columnas = ['#', 'Pregunta Frecuente', 'Respuesta Breve', 'Fecha', 'Acciones'];
-                    $result = $mysqli->query("SELECT * FROM FAQS");
-                    $filas = $result->fetch_all(MYSQLI_ASSOC);
-                    break;
+            case 'news':
+                $columnas = ['#', 'Título', 'Descripción', 'Subtitulo', 'Fecha', 'Acciones'];
+                $result = $mysqli->query("SELECT * FROM NEWS");
+                $filas = $result->fetch_all(MYSQLI_ASSOC);
 
-                default:
-                    echo '<h2>Bienvenido al Panel de Administración</h2>';
-                    echo '<p>Seleccione una opción del menú para comenzar.</p>';
-                    return;
-            }
+                break;
 
-            // Generar tabla
-            echo $header;
-            echo '<div class="table-responsive">
+            case 'portfolio':
+                $columnas = ['#', 'Título', 'Descripción', 'Miniatura', 'URL', 'Acciones'];
+                $result = $mysqli->query("SELECT * FROM PROJECTS");
+                $filas = $result->fetch_all(MYSQLI_ASSOC);
+                break;
+
+            case 'testimonials':
+                $columnas = ['#', ' Nombre', 'Apellidos', 'Descripción', 'Puntuación', 'Imagen', 'Fecha', 'Acciones'];
+                $result = $mysqli->query("SELECT * FROM TESTIMONIALS");
+                $filas = $result->fetch_all(MYSQLI_ASSOC);
+                break;
+
+            case 'comments':
+                $columnas = ['#', 'Comentario', 'ID Usuario', 'ID Notícia', 'Fecha', 'CommentID', 'Acciones'];
+                $result = $mysqli->query("SELECT * FROM COMMENTS");
+                $filas = $result->fetch_all(MYSQLI_ASSOC);
+                break;
+
+            case 'faqs':
+                $columnas = ['#', 'Pregunta Frecuente', 'Respuesta Breve', 'Fecha', 'Acciones'];
+                $result = $mysqli->query("SELECT * FROM FAQS");
+                $filas = $result->fetch_all(MYSQLI_ASSOC);
+                break;
+
+            default:
+                echo '<h2>Bienvenido al Panel de Administración</h2>';
+                echo '<p>Seleccione una opción del menú para comenzar.</p>';
+                return;
+        }
+
+        // Generar tabla
+        echo $header;
+        echo '<div class="table-responsive">
                     <table class="table table-striped table-hover">
                         <thead class="table-dark">
                             <tr>';
 
-            foreach ($columnas as $columna) {
-                echo "<th scope='col'>{$columna}</th>";
-            }
+        foreach ($columnas as $columna) {
+            echo "<th scope='col'>{$columna}</th>";
+        }
 
-            echo '</tr>
+        echo '</tr>
                 </thead>
                 <tbody>';
 
-            foreach ($filas as $fila) {
-                echo '<tr>';
+        foreach ($filas as $fila) {
+            echo '<tr>';
 
-                // Cada columna de la tabla
-                foreach ($fila as $dato) {
-                    echo "<td>{$dato}</td>";
-                }
+            // Cada columna de la tabla
+            foreach ($fila as $dato) {
+                echo "<td>{$dato}</td>";
+            }
 
-                // Se añade la columna acciones al final de la tabla
-                echo '<td class="d-flex align-items-center gap-2 flex-wrap">
+            // Se añade la columna acciones al final de la tabla
+            echo '<td class="d-flex align-items-center gap-2 flex-wrap">
                         <button type="button" class="btn btn-primary btn-sm">
                             <i class="bi bi-pencil"></i>
                         </button>
@@ -100,31 +180,32 @@
                         </a>
                     </td>';
 
-                echo '</tr>';
-            }
+            echo '</tr>';
+        }
 
-            echo '</tbody>
+        echo '</tbody>
                 </table>
             </div>';
-        } else {
-            echo '<h2>Bienvenido al Panel de Administración</h2>';
-            echo '<p>Seleccione una opción del menú para comenzar.</p>';
-        }
+    } else {
+        echo '<h2>Bienvenido al Panel de Administración</h2>';
+        echo '<p>Seleccione una opción del menú para comenzar.</p>';
     }
+}
 
-    // Función para obtener el título dinámico según la página seleccionada
-    function obtenerTitulo($page) {
-        $titulos = [
-            "users" => "Usuarios",
-            "news" => "Noticias",
-            "portfolio" => "Portafolio",
-            "testimonials" => "Testimonios",
-            "comments" => "Comentarios",
-            "faqs" => "FAQs"
-        ];
+// Función para obtener el título dinámico según la página seleccionada
+function obtenerTitulo($page)
+{
+    $titulos = [
+        "users" => "Usuarios",
+        "news" => "Noticias",
+        "portfolio" => "Portafolio",
+        "testimonials" => "Testimonios",
+        "comments" => "Comentarios",
+        "faqs" => "FAQs"
+    ];
 
-        return isset($titulos[$page]) ? $titulos[$page] : "Panel";
-    }
+    return isset($titulos[$page]) ? $titulos[$page] : "Panel";
+}
 
 
 ?>
@@ -149,9 +230,11 @@
             width: 16px;
             height: 16px;
         }
-        #sidebarMenu{
+
+        #sidebarMenu {
             max-width: 15rem !important;
         }
+
         .sidebar {
             position: fixed;
             top: 0;
@@ -284,10 +367,13 @@
             </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <?php mostrarVista()?>
+                <?php mostrarVista() ?>
             </main>
         </div>
+
     </div>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
