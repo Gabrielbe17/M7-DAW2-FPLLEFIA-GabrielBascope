@@ -38,7 +38,7 @@
                     break;
 
                 case 'portfolio':
-                    $columnas = ['#', 'Proyecto', 'Titulo', 'Descripción', 'Miniatura', 'URL', 'Acciones'];
+                    $columnas = ['#', 'Título', 'Descripción', 'Miniatura', 'URL', 'Acciones'];
                     $result = $mysqli->query("SELECT * FROM PROJECTS");
                     $filas = $result->fetch_all(MYSQLI_ASSOC);
                     break;
@@ -50,7 +50,7 @@
                     break;
 
                 case 'comments':
-                    $columnas = ['#', 'Usuario', 'Comentario', 'Fecha', 'Acciones'];
+                    $columnas = ['#', 'Comentario', 'ID Usuario', 'ID Notícia', 'Fecha', 'CommentID', 'Acciones'];
                     $result = $mysqli->query("SELECT * FROM COMMENTS");
                     $filas = $result->fetch_all(MYSQLI_ASSOC);
                     break;
@@ -89,12 +89,12 @@
                     echo "<td>{$dato}</td>";
                 }
 
-                echo '<td>
+                echo '<td class="d-flex align-items-center gap-2 flex-wrap">
                         <button type="button" class="btn btn-primary btn-sm">
-                            <i class="bi bi-pencil"></i> Editar
+                            <i class="bi bi-pencil"></i>
                         </button>
                         <button type="button" class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash"></i> Eliminar
+                            <i class="bi bi-trash"></i>
                         </button>
                     </td>';
 
@@ -147,7 +147,9 @@
             width: 16px;
             height: 16px;
         }
-
+        #sidebarMenu{
+            max-width: 15rem !important;
+        }
         .sidebar {
             position: fixed;
             top: 0;
@@ -280,54 +282,6 @@
             </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Panel</h1>
-                    <button type="button" class="btn btn-success">
-                        <i class="bi bi-plus-circle"></i>
-                    </button>
-
-                </div>
-
-                <div class="table-responsive">
-                    <table class="table table-striped table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Descripción</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Producto A</td>
-                                <td>Descripción del Producto A</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-item-id="1">
-                                        <i class="bi bi-pencil"></i> Editar
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash"></i> Eliminar
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Producto B</td>
-                                <td>Descripción del Producto B</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-item-id="2">
-                                        <i class="bi bi-pencil"></i> Editar
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-sm">
-                                        <i class="bi bi-trash"></i> Eliminar
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div> -->
                 <?php mostrarVista()?>
             </main>
         </div>
