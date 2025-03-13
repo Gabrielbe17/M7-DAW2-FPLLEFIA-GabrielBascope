@@ -172,9 +172,9 @@ function mostrarVista()
 
             // Se añade la columna acciones al final de la tabla
             echo '<td class="d-flex align-items-center gap-2 flex-wrap">
-                        <button type="button" class="btn btn-primary btn-sm">
+                        <a href="editar.php?id=' . $fila['id'] . '&table=' . $selectedPage . '" class="btn btn-primary btn-sm">
                             <i class="bi bi-pencil"></i>
-                        </button>
+                        </a>
                         <a href="eliminar.php?id=' . $fila['id'] . '&table=' . $selectedPage . '" class="btn btn-danger btn-sm">
                             <i class="bi bi-trash"></i>
                         </a>
