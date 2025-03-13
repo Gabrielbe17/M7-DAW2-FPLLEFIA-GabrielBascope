@@ -48,6 +48,15 @@ $añadirFormInputs = [
     ],
 ];
 
+$campos = [
+    'USERS' => ['name', 'email', 'password', 'role', 'dateRegister', 'picture'],
+    'NEWS' => ['title', 'description', 'subtitle', 'newDate'],
+    'PROJECTS' => ['title', 'description', 'thumbnail', 'url'],
+    'TESTIMONIALS' => ['name', 'surname', 'description', 'rating', 'image', 'date'],
+    'COMMENTS' => ['description', 'userID', 'newID', 'date', 'commentID'],
+    'FAQS' => ['question', 'answer', 'date']
+];
+
 
 function mostrarVista()
 {
@@ -58,9 +67,10 @@ function mostrarVista()
         // Encabezado común
         $header = '<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
              <h1 class="h2">' . obtenerTitulo($selectedPage) . '</h1>
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
-                <i class="bi bi-plus-circle"></i> Añadir
-            </button>
+           
+             <a href="añadir.php?table=' . $selectedPage . '" class="btn btn-success btn-sm">
+                <i class="bi bi-plus-circle"></i> Añadir           
+             </a>
         </div>
 
     <!-- Modal -->

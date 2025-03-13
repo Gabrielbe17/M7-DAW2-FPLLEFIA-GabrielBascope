@@ -1,20 +1,13 @@
 <?php
+
     require_once './config/config.php';
 
-    if (!isset($_GET['id']) || !isset($_GET['table'])) {
+    if (!isset($_GET['table'])) {
         header('Location: index.php');
         exit();
     }
 
     $tabla = $_GET['table'] == 'portfolio' ? 'PROJECTS' : strtoupper($_GET['table']);
-    $id = (int) $_GET['id'];
-
-
-    $result = $mysqli->query("SELECT * FROM $tabla WHERE id = $id");
-    $array = $result->fetch_assoc();
-
-    // print_r($array);
-    // print("<pre>".print_r($array,true)."</pre>");
 
     // Definir los campos para cada tabla
     $campos = [
@@ -25,24 +18,25 @@
         'COMMENTS' => ['description', 'userID', 'newID', 'date', 'commentID'],
         'FAQS' => ['question', 'answer', 'date']
     ];
+    $cols = implode(", ", $campos[$tabla]);
+    echo $cols;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $updateFields = [];
+        $inputs = [];
         $types = "";
         $values = [];
 
         foreach ($campos[$tabla] as $campo) {
             if (isset($_POST[$campo])) {
-                $updateFields[] = "$campo = ?";
+                $inputs[] = str_contains($campo, "date") ? 'NOW()' : "?";
                 $types .= "s"; 
                 $values[] = $_POST[$campo];
             }
         }
 
-        $values[] = $id;
-        $types .= "i"; // Para el ID
-
-        $query = "UPDATE $tabla SET " . implode(", ", $updateFields) . " WHERE id = ?";
+        $inputsPreparados = implode(", ", $inputs);
+        $query = "INSERT INTO $tabla ($cols) VALUES($inputsPreparados)";
+        
         $stmt = $mysqli->prepare($query);
         $stmt->bind_param($types, ...$values);
         $stmt->execute();
@@ -51,7 +45,6 @@
         header("Location: admin.php?page=" . $_GET['table']);
         exit();
     }
-
 ?>
 
 <!DOCTYPE html>
@@ -59,12 +52,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar</title>
-    <link rel="stylesheet" href="plugins/bootstrap/bootstrap.min.css">
+    <title>Añadir registro</title>
 </head>
 <body class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div style="min-width: 25rem;" class="">
-        <h1 class="text-center">Edita</h1>
+        <h1 class="text-center">Añadir</h1>
         <form method="POST" class="d-flex flex-column">
             <?php foreach ($campos[$tabla] as $campo): ?>
                 <div class="d-flex flex-column">
@@ -72,7 +64,7 @@
                     <input type="text" id="<?php echo $campo; ?>" name="<?php echo $campo; ?>" value="<?php echo ($array[$campo]); ?>">
                 </div>
             <?php endforeach; ?>
-            <input type="submit" value="Actualizar" class="btn btn-primary mt-3">
+            <input type="submit" value="Añadir" class="btn btn-primary mt-3">
         </form>
     </div>
 </body>

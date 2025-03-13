@@ -3,7 +3,7 @@
     require_once('./config/config.php');
 
     if (isset($_GET['table']) && isset($_GET['id'])) {
-        $tabla = strtoupper($_GET['table']);
+        $tabla = $_GET['table'] == 'portfolio' ? 'PROJECTS' : strtoupper($_GET['table']);
         $id = $_GET['id'];
 
         $stmt = $mysqli->prepare("DELETE FROM $tabla WHERE id = ?");
