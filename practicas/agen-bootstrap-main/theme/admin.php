@@ -182,15 +182,34 @@ function mostrarVista()
 
             // Se añade la columna acciones al final de la tabla
             echo '<td class="d-flex align-items-center gap-2 flex-wrap">
-                        <a href="editar.php?id=' . $fila['id'] . '&table=' . $selectedPage . '" class="btn btn-primary btn-sm">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a href="eliminar.php?id=' . $fila['id'] . '&table=' . $selectedPage . '" class="btn btn-danger btn-sm">
-                            <i class="bi bi-trash"></i>
-                        </a>
-                    </td>';
+            <a href="editar.php?id=' . $fila['id'] . '&table=' . $selectedPage . '" class="btn btn-primary btn-sm">
+                <i class="bi bi-pencil"></i>
+            </a>
+            <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal' . $fila['id'] . '">
+                <i class="bi bi-trash"></i>
+            </a>
+        </td>';
 
             echo '</tr>';
+
+            // Modal de confirmación para eliminar
+            echo '<div class="modal fade" id="deleteModal' . $fila['id'] . '" tabindex="-1" aria-labelledby="deleteModalLabel' . $fila['id'] . '" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel' . $fila['id'] . '">Confirmar eliminación</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Está seguro que desea eliminar este registro?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="eliminar.php?id=' . $fila['id'] . '&table=' . $selectedPage . '" class="btn btn-danger">Eliminar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>';
         }
 
         echo '</tbody>
