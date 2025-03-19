@@ -19,20 +19,32 @@
         'FAQS' => ['question', 'answer', 'date']
     ];
     $cols = implode(", ", $campos[$tabla]);
-    echo $cols;
+    // echo $cols;
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $inputs = [];
         $types = "";
         $values = [];
 
+        // foreach ($campos[$tabla] as $campo) {
+        //     if (isset($_POST[$campo])) {
+        //         $inputs[] = str_contains($campo, "date") ? 'NOW()' : "?";
+        //         $types .= "s"; 
+        //         $values[] = $_POST[$campo];
+        //     }
+        // }
         foreach ($campos[$tabla] as $campo) {
             if (isset($_POST[$campo])) {
-                $inputs[] = str_contains($campo, "date") ? 'NOW()' : "?";
-                $types .= "s"; 
-                $values[] = $_POST[$campo];
+                if (strpos($campo, "date") !== false) {
+                    $inputs[] = 'NOW()';
+                } else {
+                    $inputs[] = "?";
+                    $types .= "s"; 
+                    $values[] = $_POST[$campo];
+                }
             }
         }
+        
 
         $inputsPreparados = implode(", ", $inputs);
         $query = "INSERT INTO $tabla ($cols) VALUES($inputsPreparados)";
