@@ -2,6 +2,8 @@
 session_start();
 require_once('./config/config.php');
 
+$uploadDir = 'uploads/';
+
 $mensaje = false;
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // 
@@ -9,7 +11,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // $apellidos = $_POST['apellidos'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $picture = $_POST['picture'];
+    // $picture = $_POST['picture'];
+
+    if (isset($_FILES['picture']) && $_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+        $fileTmpPath = $_FILES['picture']['tmp_name'];
+        $fileName = $_FILES['picture']['name'];
+    
+        $fileNameCmps = explode(".", $fileName);
+        $fileExtension = strtolower(end($fileNameCmps));
+
+
+        $allowedExtension = ['jpg', 'jpeg', 'png', 'gif'];
+        if (in_array($fileExtension, $allowedExtension)) {
+            $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+            
+            $dest_path = $uploadDir . $newFileName;
+    
+    
+            if (!move_uploaded_file($fileTmpPath, $dest_path)) {
+                die('Error: No se pudo mover el archivo a la carpeta de destino.');
+            }
+        }else{
+            die('Error: Solo se permiten archivos de imagen (jpg, jpeg, png, gif)');
+        }
+    
+    }else{
+        die('Error: La foto no se subió correctamente.');
+    }
+
 
     // 1. password cifrada
     $passwordHashed = password_hash($password, PASSWORD_DEFAULT);
@@ -25,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // 4. Bindear parametros (o setear)
-    $stmt->bind_param('ssss', $name, $email, $passwordHashed, $picture);
+    $stmt->bind_param('ssss', $name, $email, $passwordHashed, $dest_path);
 
 
     // 5. Ejecutar consulta
@@ -61,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             <span class="text-success"><?php echo "Usuario registrado correctamente"; ?></span>
         <?php endif; ?>
 
-        <form action="" method="POST" class="d-flex flex-column">
+        <form action="" method="POST" class="d-flex flex-column" enctype="multipart/form-data">
             <div class="d-flex flex-column">
                 <label for="name">Nombre: </label>
                 <input type="text" id="name" name="name" required><br><br>
@@ -79,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <div class="d-flex flex-column">
                 <label for="picture">Picture: </label>
-                <input type="url" id="picture" name="picture" placeholder="URL de la imagen"><br><br>
+                <input type="file" id="picture" name="picture" placeholder="URL de la imagen" accept="image/*"><br><br>
             </div>
 
             <input type="submit" value="Registrarse" class="btn btn-primary">
