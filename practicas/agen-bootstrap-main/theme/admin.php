@@ -50,7 +50,7 @@ if ($_SESSION['user_role'] !== 'admin') {
 
 $campos = [
     'USERS' => ['name', 'email', 'password', 'role', 'dateRegister', 'picture'],
-    'NEWS' => ['title', 'description', 'subtitle', 'newDate'],
+    'NEWS' => ['title', 'description', 'subtitle', 'newDate', 'picture'],
     'PROJECTS' => ['title', 'description', 'thumbnail', 'url'],
     'TESTIMONIALS' => ['name', 'surname', 'description', 'rating', 'image', 'date'],
     'COMMENTS' => ['description', 'userID', 'newID', 'date', 'commentID'],
@@ -121,7 +121,7 @@ function mostrarVista()
                 break;
 
             case 'news':
-                $columnas = ['#', 'Título', 'Descripción', 'Subtitulo', 'Fecha', 'Acciones'];
+                $columnas = ['#', 'Título', 'Descripción', 'Subtitulo', 'Fecha', 'Imagen', 'Acciones'];
                 $result = $mysqli->query("SELECT * FROM NEWS");
                 $filas = $result->fetch_all(MYSQLI_ASSOC);
 

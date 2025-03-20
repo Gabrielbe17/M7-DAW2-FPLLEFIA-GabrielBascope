@@ -162,7 +162,9 @@
         <h3 class="font-tertiary mb-5">
           <?= $singleNew[0]['title']?>
         </h3>
-        <img src="images/blog/post-1.jpg" alt="post-thumb" class="img-fluid w-100 mb-3">
+        <!-- <img src="images/blog/post-1.jpg" alt="post-thumb" class="img-fluid w-100 mb-3"> -->
+        <img src="<?= !empty($singleNew[0]['picture']) ? $singleNew[0]['picture'] : 'images/blog/post-1.jpg' ?>" alt="post-thumb" class="img-fluid w-100 mb-3">
+
         <!-- hacer join para obtener autor -->
         <p class="float-left mr-4">Post by Admin</p>
         <p><?= $singleNew[0]['newDate']?></p>

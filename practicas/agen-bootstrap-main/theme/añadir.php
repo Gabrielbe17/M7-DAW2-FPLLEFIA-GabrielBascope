@@ -7,12 +7,14 @@ if (!isset($_GET['table'])) {
     exit();
 }
 
+
+$uploadDir = 'uploads/' . strtolower($_GET['table']) . '/';
 $tabla = $_GET['table'] == 'portfolio' ? 'PROJECTS' : strtoupper($_GET['table']);
 
 // Definir los campos para cada tabla
 $campos = [
     'USERS' => ['name', 'email', 'password', 'role', 'dateRegister', 'picture'],
-    'NEWS' => ['title', 'description', 'subtitle', 'newDate'],
+    'NEWS' => ['title', 'description', 'subtitle', 'newDate', 'picture'],
     'PROJECTS' => ['title', 'description', 'thumbnail', 'url'],
     'TESTIMONIALS' => ['name', 'surname', 'description', 'rating', 'image', 'date'],
     'COMMENTS' => ['description', 'userID', 'newID', 'date', 'commentID'],
@@ -22,9 +24,10 @@ $cols = implode(", ", $campos[$tabla]);
 // echo $cols;
 
 $errores = [];
-function validarCampo($campo, $valor){
+function validarCampo($campo, $valor)
+{
     global $errores;
-    
+
     switch ($campo) {
         case 'email':
             if (!filter_var($valor, FILTER_VALIDATE_EMAIL)) {
@@ -61,6 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST[$campo])) {
             validarCampo($campo, $_POST[$campo]);
 
+            // echo $campo;
             if (strpos($campo, "date") !== false) {
                 $inputs[] = 'NOW()';
             } else {
@@ -68,14 +72,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $types .= "s";
                 $values[] = $_POST[$campo];
             }
+        } else if ($campo === 'picture' || $campo == 'thumbnail') {
+            if (isset($_FILES[$campo]) && $_FILES[$campo]['error'] === UPLOAD_ERR_OK) {
+                $fileTmpPath = $_FILES[$campo]['tmp_name'];
+                $fileName = $_FILES[$campo]['name'];
+
+                $fileNameCmps = explode(".", $fileName);
+                $fileExtension = strtolower(end($fileNameCmps));
+
+
+                $allowedExtension = ['jpg', 'jpeg', 'png', 'gif'];
+                if (in_array($fileExtension, $allowedExtension)) {
+                    $newFileName = md5(time() . $fileName) . '.' . $fileExtension;
+
+                    $dest_path = $uploadDir . $newFileName;
+
+
+                    if (!move_uploaded_file($fileTmpPath, $dest_path)) {
+                        die('Error: No se pudo mover el archivo a la carpeta de destino.');
+                    } else {
+                        $inputs[] = "?";
+                        $types .= "s";
+                        $values[] = $dest_path;
+                    }
+                } else {
+                    die('Error: Solo se permiten archivos de imagen (jpg, jpeg, png, gif)');
+                }
+            } else {
+                die('Error: La foto no se subió correctamente.');
+            }
         }
     }
 
+
+
     if (empty($errores)) {
         $inputsPreparados = implode(", ", $inputs);
+        // echo $inputsPreparados;
         $query = "INSERT INTO $tabla ($cols) VALUES($inputsPreparados)";
 
         $stmt = $mysqli->prepare($query);
+        // var_dump($values);
         $stmt->bind_param($types, ...$values);
         $stmt->execute();
 
@@ -99,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div style="min-width: 25rem;" class="">
         <h1 class="text-center">Añadir</h1>
-        <form method="POST" class="d-flex flex-column">
+        <!-- <form method="POST" class="d-flex flex-column" enctype="multipart/form-data">
             <?php foreach ($campos[$tabla] as $campo): ?>
                 <div class="d-flex flex-column">
                     <label for="<?php echo $campo; ?>"><?php echo ucfirst($campo); ?>:</label>
@@ -110,7 +147,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             <?php endforeach; ?>
             <input type="submit" value="Añadir" class="btn btn-primary mt-3">
+        </form> -->
+        <form method="POST" class="d-flex flex-column" enctype="multipart/form-data">
+            <?php foreach ($campos[$tabla] as $campo): ?>
+                <div class="d-flex flex-column">
+                    <label for="<?php echo $campo; ?>"><?php echo ucfirst($campo); ?>:</label>
+                    <input
+                        type="<?php echo ($campo === 'picture' || $campo === 'thumbnail') ? 'file' : 'text'; ?>"
+                        id="<?php echo $campo; ?>"
+                        name="<?php echo $campo; ?>"
+                        <?php echo ($campo === 'picture' || $campo === 'thumbnail') ? 'accept="image/*"' : 'value=""'; ?>>
+
+                    <?php if (isset($errores[$campo])): ?>
+                        <span class="text-danger"><?php echo $errores[$campo]; ?></span>
+                    <?php endif; ?>
+                </div>
+            <?php endforeach; ?>
+            <input type="submit" value="Añadir" class="btn btn-primary mt-3">
         </form>
+
+
     </div>
 </body>
 
