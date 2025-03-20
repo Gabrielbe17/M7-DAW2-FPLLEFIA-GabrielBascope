@@ -2,7 +2,7 @@
 session_start();
 require_once('./config/config.php');
 
-$uploadDir = 'uploads/';
+$uploadDir = 'uploads/avatares';
 
 $mensaje = false;
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
