@@ -2,6 +2,7 @@
 session_start();
 require_once('./config/config.php');
 
+$mensaje = false;
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // 
     $name = $_POST['name'];
@@ -29,9 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     // 5. Ejecutar consulta
     if ($stmt->execute()) {
-        echo 'Usuario registrado correctamente';
+        // echo 'Usuario registrado correctamente';
+        $mensaje  = 'success';
     } else {
-        echo 'Error al registrar el usuario';
+        $mensaje = 'error';
         // 6. Cerrar la conexión
         $stmt->close();
         $mysqli->close();
@@ -53,6 +55,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div style="min-width: 25rem;" class="">
         <h1 class="text-center">Registro</h1>
+        <?php if ($mensaje == "error"): ?>
+            <span class="text-danger"><?php echo "Error al registrar el usuario"; ?></span>
+        <?php elseif ($mensaje == "success"): ?>
+            <span class="text-success"><?php echo "Usuario registrado correctamente"; ?></span>
+        <?php endif; ?>
+
         <form action="" method="POST" class="d-flex flex-column">
             <div class="d-flex flex-column">
                 <label for="name">Nombre: </label>

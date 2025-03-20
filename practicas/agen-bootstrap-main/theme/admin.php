@@ -7,46 +7,46 @@ if ($_SESSION['user_role'] !== 'admin') {
     exit();
 }
 
-$añadirFormInputs = [
-    "users" => [
-        ["type" => "text", "name" => "nombre", "label" => "Nombre", "required" => true],
-        ["type" => "email", "name" => "email", "label" => "Email", "required" => true],
-        ["type" => "password", "name" => "contraseña", "label" => "Contraseña", "required" => true],
-        ["type" => "select", "name" => "rol", "label" => "Rol", "options" => ["admin", "user"], "required" => true],
-        ["type" => "file", "name" => "imagen", "label" => "Imagen", "required" => false]
-    ],
-    "news" => [
-        ["type" => "text", "name" => "titulo", "label" => "Título", "required" => true],
-        ["type" => "textarea", "name" => "descripcion", "label" => "Descripción", "required" => true],
-        ["type" => "text", "name" => "subtitulo", "label" => "Subtítulo", "required" => false],
-        ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
-    ],
-    "portfolio" => [
-        ["type" => "text", "name" => "titulo", "label" => "Título", "required" => true],
-        ["type" => "textarea", "name" => "descripcion", "label" => "Descripción", "required" => true],
-        ["type" => "file", "name" => "miniatura", "label" => "Miniatura", "required" => true],
-        ["type" => "url", "name" => "url", "label" => "URL", "required" => true]
-    ],
-    "testimonials" => [
-        ["type" => "text", "name" => "nombre", "label" => "Nombre", "required" => true],
-        ["type" => "text", "name" => "apellidos", "label" => "Apellidos", "required" => true],
-        ["type" => "textarea", "name" => "descripcion", "label" => "Descripción", "required" => true],
-        ["type" => "number", "name" => "puntuacion", "label" => "Puntuación", "min" => 1, "max" => 5, "required" => true],
-        ["type" => "file", "name" => "imagen", "label" => "Imagen", "required" => false],
-        ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
-    ],
-    "comments" => [
-        ["type" => "textarea", "name" => "comentario", "label" => "Comentario", "required" => true],
-        ["type" => "number", "name" => "id_usuario", "label" => "ID Usuario", "required" => true],
-        ["type" => "number", "name" => "id_noticia", "label" => "ID Noticia", "required" => true],
-        ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
-    ],
-    "faqs" => [
-        ["type" => "text", "name" => "pregunta", "label" => "Pregunta Frecuente", "required" => true],
-        ["type" => "textarea", "name" => "respuesta", "label" => "Respuesta Breve", "required" => true],
-        ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
-    ],
-];
+// $añadirFormInputs = [
+//     "users" => [
+//         ["type" => "text", "name" => "nombre", "label" => "Nombre", "required" => true],
+//         ["type" => "email", "name" => "email", "label" => "Email", "required" => true],
+//         ["type" => "password", "name" => "contraseña", "label" => "Contraseña", "required" => true],
+//         ["type" => "select", "name" => "rol", "label" => "Rol", "options" => ["admin", "user"], "required" => true],
+//         ["type" => "file", "name" => "imagen", "label" => "Imagen", "required" => false]
+//     ],
+//     "news" => [
+//         ["type" => "text", "name" => "titulo", "label" => "Título", "required" => true],
+//         ["type" => "textarea", "name" => "descripcion", "label" => "Descripción", "required" => true],
+//         ["type" => "text", "name" => "subtitulo", "label" => "Subtítulo", "required" => false],
+//         ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
+//     ],
+//     "portfolio" => [
+//         ["type" => "text", "name" => "titulo", "label" => "Título", "required" => true],
+//         ["type" => "textarea", "name" => "descripcion", "label" => "Descripción", "required" => true],
+//         ["type" => "file", "name" => "miniatura", "label" => "Miniatura", "required" => true],
+//         ["type" => "url", "name" => "url", "label" => "URL", "required" => true]
+//     ],
+//     "testimonials" => [
+//         ["type" => "text", "name" => "nombre", "label" => "Nombre", "required" => true],
+//         ["type" => "text", "name" => "apellidos", "label" => "Apellidos", "required" => true],
+//         ["type" => "textarea", "name" => "descripcion", "label" => "Descripción", "required" => true],
+//         ["type" => "number", "name" => "puntuacion", "label" => "Puntuación", "min" => 1, "max" => 5, "required" => true],
+//         ["type" => "file", "name" => "imagen", "label" => "Imagen", "required" => false],
+//         ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
+//     ],
+//     "comments" => [
+//         ["type" => "textarea", "name" => "comentario", "label" => "Comentario", "required" => true],
+//         ["type" => "number", "name" => "id_usuario", "label" => "ID Usuario", "required" => true],
+//         ["type" => "number", "name" => "id_noticia", "label" => "ID Noticia", "required" => true],
+//         ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
+//     ],
+//     "faqs" => [
+//         ["type" => "text", "name" => "pregunta", "label" => "Pregunta Frecuente", "required" => true],
+//         ["type" => "textarea", "name" => "respuesta", "label" => "Respuesta Breve", "required" => true],
+//         ["type" => "date", "name" => "fecha", "label" => "Fecha", "required" => true]
+//     ],
+// ];
 
 $campos = [
     'USERS' => ['name', 'email', 'password', 'role', 'dateRegister', 'picture'],
