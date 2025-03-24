@@ -4,7 +4,7 @@ require_once './config/config.php';
 
 
 // query 
-echo "<br>";
+// echo "<br>";
 $result = $mysqli->query("SELECT * FROM PROJECTS ORDER BY id DESC");
 $resultNews = $mysqli->query("SELECT * FROM NEWS ORDER BY newDate DESC LIMIT 3");
 // print_r($result);
@@ -356,7 +356,7 @@ $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
         <?php foreach ($projects as $project) {
           echo "<div class='col-lg-4 col-md-6 shuffle-item'>
             <div class='project-item'>
-              <img src='images/project/project-1.jpg' alt='project-image' class='img-fluid w-100'>
+              <img src={$project['thumbnail']} alt='project-image' class='img-fluid w-100'>
               <div class='project-hover bg-secondary px-4 py-3'>
                 <a href='#' class='text-white h4'>{$project['title']}</a>
                 <a href={$project['url']}><i class='ti-link icon-xs text-white'></i></a>

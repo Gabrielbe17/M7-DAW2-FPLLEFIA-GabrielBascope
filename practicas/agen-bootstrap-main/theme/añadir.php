@@ -53,13 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $types = "";
     $values = [];
 
-    // foreach ($campos[$tabla] as $campo) {
-    //     if (isset($_POST[$campo])) {
-    //         $inputs[] = str_contains($campo, "date") ? 'NOW()' : "?";
-    //         $types .= "s"; 
-    //         $values[] = $_POST[$campo];
-    //     }
-    // }
     foreach ($campos[$tabla] as $campo) {
         if (isset($_POST[$campo])) {
             validarCampo($campo, $_POST[$campo]);
@@ -136,27 +129,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body class="d-flex justify-content-center align-items-center" style="min-height: 100vh;">
     <div style="min-width: 25rem;" class="">
         <h1 class="text-center">Añadir</h1>
-        <!-- <form method="POST" class="d-flex flex-column" enctype="multipart/form-data">
-            <?php foreach ($campos[$tabla] as $campo): ?>
-                <div class="d-flex flex-column">
-                    <label for="<?php echo $campo; ?>"><?php echo ucfirst($campo); ?>:</label>
-                    <input type="text" id="<?php echo $campo; ?>" name="<?php echo $campo; ?>" value="">
-                    <?php if (isset($errores[$campo])): ?>
-                        <span class="text-danger"><?php echo $errores[$campo]; ?></span>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-            <input type="submit" value="Añadir" class="btn btn-primary mt-3">
-        </form> -->
         <form method="POST" class="d-flex flex-column" enctype="multipart/form-data">
             <?php foreach ($campos[$tabla] as $campo): ?>
                 <div class="d-flex flex-column">
                     <label for="<?php echo $campo; ?>"><?php echo ucfirst($campo); ?>:</label>
                     <input
-                        type="<?php echo ($campo === 'picture' || $campo === 'thumbnail') ? 'file' : 'text'; ?>"
+                        type="<?php
+                                if ($campo === 'picture' || $campo === 'thumbnail') {
+                                    echo 'file';
+                                } elseif (strpos(strtolower($campo), 'date') !== false) {
+                                    echo 'date';
+                                } else {
+                                    echo 'text';
+                                }
+                                ?>"
                         id="<?php echo $campo; ?>"
                         name="<?php echo $campo; ?>"
-                        <?php echo ($campo === 'picture' || $campo === 'thumbnail') ? 'accept="image/*"' : 'value=""'; ?>>
+                        <?php
+                        if ($campo === 'picture' || $campo === 'thumbnail') {
+                            echo 'accept="image/*"';
+                        } else {
+                            echo 'value=""';
+                        }
+                        ?>>
 
                     <?php if (isset($errores[$campo])): ?>
                         <span class="text-danger"><?php echo $errores[$campo]; ?></span>
@@ -165,6 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <?php endforeach; ?>
             <input type="submit" value="Añadir" class="btn btn-primary mt-3">
         </form>
+
 
 
     </div>
