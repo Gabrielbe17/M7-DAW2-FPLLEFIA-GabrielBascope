@@ -83,23 +83,23 @@ $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
           <li class="nav-item">
             <a class="nav-link" href="about.php">About</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="services.php">Services</a>
-          </li>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" href="blog.php">Blog</a>
           </li>
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <a class="nav-link" href="portfolio.php">Portfolio</a>
-          </li>
+          </li> -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="team.php">Team</a>
-              <a class="dropdown-item" href="team-single.php">Team Details</a>
-              <a class="dropdown-item" href="career.php">Career</a>
-              <a class="dropdown-item" href="career-single.php">Career Details</a>
-              <a class="dropdown-item" href="blog-single.php">Blog Details</a>
+              <!-- <a class="dropdown-item" href="team.php">Team</a> -->
+              <!-- <a class="dropdown-item" href="team-single.php">Team Details</a> -->
+              <!-- <a class="dropdown-item" href="career.php">Career</a> -->
+              <!-- <a class="dropdown-item" href="career-single.php">Career Details</a> -->
+              <!-- <a class="dropdown-item" href="blog-single.php">Blog Details</a> -->
               <a class="dropdown-item" href="pricing.php">Pricing</a></a>
               <a class="dropdown-item" href="./faqs.php">FAQ's</a>
             </div>
@@ -107,10 +107,16 @@ $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
           <li class="nav-item">
             <a class="nav-link" href="contact.php">Contact</a>
           </li>
+          <?php if (!isset($_SESSION['user_id'])) : ?>
+            <li class="nav-item">
+              <a class="nav-link border p-3" href="login.php">Inicia Sesión</a>
+            </li>
+         
+          <?php endif; ?>
         </ul>
 
 
-        <?php if (isset($_SESSION['user_picture'])) : ?>
+        <?php if (isset($_SESSION['user_id'])) : ?>
           <img src="<?= $_SESSION['user_picture'] ?>" class="rounded-circle img-fluid" style="width: 50px; height: 50px; object-fit: cover;" alt="User Avatar">
           <p class="mt-3"><?= $_SESSION['user_name'] ?></p>
           <a href="logout.php" class="btn btn-primary btn-sm">Cerrar Sesión</a>
@@ -194,59 +200,57 @@ $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
     </div>
   </section>
   <!-- /service -->
-
-  <!-- feature -->
-  <section class="section bg-secondary position-relative">
-    <div class="bg-image overlay-secondary">
-      <img src="images/feature.jpg" alt="bg-image">
-    </div>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-xl-9 mx-auto">
-          <div class="row align-items-center">
-            <div class="col-lg-4 mb-4 mb-lg-0">
-              <img src="images/feature.jpg" alt="feature-image" class="img-fluid">
-            </div>
-            <div class="col-lg-7 offset-lg-1">
-              <div class="row">
-                <div class="col-12">
-                  <h2 class="text-white">Sabemos qué herramientas usar</h2>
-                  <div class="section-border ml-0"></div>
-                </div>
-                <div class="col-md-6 mb-4">
-                  <div class="media">
-                    <i class="icon text-gradient-primary ti-vector mr-3"></i>
-                    <div class="media-body">
-                      <h4 class="text-white">User Experience</h4>
-                      <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
-                    </div>
+<!-- feature -->
+<section class="section bg-secondary position-relative">
+  <div class="bg-image overlay-secondary">
+    <img src="images/feature.jpg" alt="bg-image">
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <div class="row align-items-center">
+          <div class="col-lg-4 mb-4 mb-lg-0">
+            <img src="images/feature.jpg" alt="feature-image" class="img-fluid">
+          </div>
+          <div class="col-lg-7 offset-lg-1">
+            <div class="row">
+              <div class="col-12">
+                <h2 class="text-white">Soluciones audiovisuales de alta calidad</h2>
+                <div class="section-border ml-0"></div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="media">
+                  <i class="icon text-gradient-primary ti-video-camera mr-3"></i>
+                  <div class="media-body">
+                    <h4 class="text-white">Producción de video</h4>
+                    <p class="text-light">Creamos contenido impactante para tu empresa con la más alta calidad audiovisual</p>
                   </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                  <div class="media">
-                    <i class="icon text-gradient-primary ti-layout mr-3"></i>
-                    <div class="media-body">
-                      <h4 class="text-white">Responsive Layout</h4>
-                      <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
-                    </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="media">
+                  <i class="icon text-gradient-primary ti-pencil-alt mr-3"></i>
+                  <div class="media-body">
+                    <h4 class="text-white">Animación personalizada</h4>
+                    <p class="text-light">Desarrollamos animaciones adaptadas a la estética y necesidades de tu empresa</p>
                   </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                  <div class="media">
-                    <i class="icon text-gradient-primary ti-headphone-alt mr-3"></i>
-                    <div class="media-body">
-                      <h4 class="text-white">Digital Solutions</h4>
-                      <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
-                    </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="media">
+                  <i class="icon text-gradient-primary ti-camera mr-3"></i>
+                  <div class="media-body">
+                    <h4 class="text-white">Fotografía profesional</h4>
+                    <p class="text-light">Capturamos momentos especiales en tus eventos con equipo de última tecnología</p>
                   </div>
                 </div>
-                <div class="col-md-6 mb-4">
-                  <div class="media">
-                    <i class="icon text-gradient-primary ti-ruler-pencil mr-3"></i>
-                    <div class="media-body">
-                      <h4 class="text-white">Bootstrap 4x</h4>
-                      <p class="text-light">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo</p>
-                    </div>
+              </div>
+              <div class="col-md-6 mb-4">
+                <div class="media">
+                  <i class="icon text-gradient-primary ti-settings mr-3"></i>
+                  <div class="media-body">
+                    <h4 class="text-white">Alquiler de equipo</h4>
+                    <p class="text-light">Ofrecemos equipo audiovisual de última generación para tus producciones</p>
                   </div>
                 </div>
               </div>
@@ -255,83 +259,87 @@ $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
         </div>
       </div>
     </div>
-  </section>
-  <!-- /feature -->
+  </div>
+</section>
+<!-- /feature -->
 
-  <!-- team -->
-  <section class="section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 mx-auto text-center">
-          <h2>Our Team</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
-          <div class="section-border"></div>
+<!-- team -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto text-center">
+        <h2>Nuestro Equipo</h2>
+        <p>Contamos con profesionales apasionados y talentosos en todas las áreas de producción audiovisual</p>
+        <div class="section-border"></div>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div class="col-lg-3 col-sm-6">
+        <div class="card hover-shadow">
+          <img src="images/team/member-1.jpg" alt="team-member" class="card-img-top">
+          <div class="card-body text-center position-relative zindex-1">
+            <h4><a class="text-dark" href="team-single.php">Laura Martínez</a></h4>
+            <i>Directora de Fotografía</i>
+          </div>
         </div>
       </div>
-      <div class="row no-gutters">
-        <div class="col-lg-3 col-sm-6">
-          <div class="card hover-shadow">
-            <img src="images/team/member-1.jpg" alt="team-member" class="card-img-top">
-            <div class="card-body text-center position-relative zindex-1">
-              <h4><a class="text-dark" href="team-single.php">Sara Adams</a></h4>
-              <i>Designer</i>
-            </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card hover-shadow">
+          <img src="images/team/member-2.jpg" alt="team-member" class="card-img-top">
+          <div class="card-body text-center position-relative zindex-1">
+            <h4><a class="text-dark" href="team-single.php">Carlos Ruiz</a></h4>
+            <i>Editor de Video</i>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card hover-shadow">
-            <img src="images/team/member-2.jpg" alt="team-member" class="card-img-top">
-            <div class="card-body text-center position-relative zindex-1">
-              <h4><a class="text-dark" href="team-single.php">Tom Bills</a></h4>
-              <i>Developer</i>
-            </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card hover-shadow">
+          <img src="images/team/member-3.jpg" alt="team-member" class="card-img-top">
+          <div class="card-body text-center position-relative zindex-1">
+            <h4><a class="text-dark" href="team-single.php">Ana García</a></h4>
+            <i>Animadora 3D</i>
           </div>
         </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card hover-shadow">
-            <img src="images/team/member-3.jpg" alt="team-member" class="card-img-top">
-            <div class="card-body text-center position-relative zindex-1">
-              <h4><a class="text-dark" href="team-single.php">Anna Walle</a></h4>
-              <i>Manager</i>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-sm-6">
-          <div class="card hover-shadow">
-            <img src="images/team/member-4.jpg" alt="team-member" class="card-img-top">
-            <div class="card-body text-center">
-              <h4>Devid Json</h4>
-              <i>CEO</i>
-            </div>
+      </div>
+      <div class="col-lg-3 col-sm-6">
+        <div class="card hover-shadow">
+          <img src="images/team/member-4.jpg" alt="team-member" class="card-img-top">
+          <div class="card-body text-center">
+            <h4>David Sánchez</h4>
+            <i>Director Creativo</i>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- /team -->
+  </div>
+</section>
+<!-- /team -->
 
-  <!-- about -->
-  <section class="section-lg position-relative bg-cover" data-background="images/backgrounds/about-bg.jpg">
-    <img src="images/backgrounds/about-bg-overlay.png" alt="overlay" class="overlay-image img-fluid">
-    <div class="container">
-      <div class="row justify-content-between">
-        <div class="col-lg-6 col-md-8 col-sm-7 col-8">
-          <h2 class="text-white mb-4">Who We Are</h2>
-          <p class="text-light mb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-            incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.</p>
-          <a href="about.php" class="btn btn-primary">Read More</a>
-        </div>
-        <div class="col-md-2 col-sm-4 col-4 text-right align-self-end">
-          <a class="venobox" data-autoplay="true" data-vbtype="video"
-            href="https://www.youtube.com/watch?v=jrkvirglgaQ"><i
-              class="text-center icon-sm icon-box rounded-circle text-white bg-gradient-primary d-block ti-control-play"></i></a>
-        </div>
+
+ <!-- about -->
+<section class="section-lg position-relative bg-cover" data-background="images/backgrounds/about-bg.jpg">
+  <img src="images/backgrounds/about-bg-overlay.png" alt="overlay" class="overlay-image img-fluid">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-6 col-md-8 col-sm-7 col-8">
+        <h2 class="text-white mb-4">Quiénes Somos</h2>
+        <p class="text-light mb-4">Somos una agencia multimedia apasionada por crear contenido audiovisual de alta calidad. 
+        Nuestro equipo de expertos combina creatividad y tecnología para ofrecer soluciones innovadoras que cautivan 
+        a las audiencias y elevan las marcas. Con años de experiencia en la industria, nos enorgullece ofrecer 
+        servicios de producción de video, animación, fotografía y alquiler de equipo que superan las expectativas 
+        de nuestros clientes.</p>
+        <a href="about.php" class="btn btn-primary">Conoce Más</a>
+      </div>
+      <div class="col-md-2 col-sm-4 col-4 text-right align-self-end">
+        <a class="venobox" data-autoplay="true" data-vbtype="video"
+          href="https://www.youtube.com/watch?v=jrkvirglgaQ"><i
+            class="text-center icon-sm icon-box rounded-circle text-white bg-gradient-primary d-block ti-control-play"></i></a>
       </div>
     </div>
-  </section>
-  <!-- /about -->
+  </div>
+</section>
+<!-- /about -->
+
 
   <!-- project -->
   <section class="section">
@@ -342,17 +350,8 @@ $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
           <div class="section-border"></div>
         </div>
       </div>
-
       <div class="row no-gutters shuffle-wrapper">
-        <!-- <div class="col-lg-4 col-md-6 shuffle-item">
-        <div class="project-item">
-          <img src="images/project/project-1.jpg" alt="project-image" class="img-fluid w-100">
-          <div class="project-hover bg-secondary px-4 py-3">
-            <a href="#" class="text-white h4">Project title</a>
-            <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-          </div>
-        </div>
-      </div> -->
+      
         <?php foreach ($projects as $project) {
           echo "<div class='col-lg-4 col-md-6 shuffle-item'>
             <div class='project-item'>
@@ -364,161 +363,106 @@ $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
             </div>
         </div>";
         } ?>
-
-        <!-- <div class="col-lg-4 col-md-6 shuffle-item">
-        <div class="project-item">
-          <img src="images/project/project-1.jpg" alt="project-image" class="img-fluid w-100">
-          <div class="project-hover bg-secondary px-4 py-3">
-            <a href="#" class="text-white h4">Project title</a>
-            <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 shuffle-item">
-        <div class="project-item">
-          <img src="images/project/project-2.jpg" alt="project-image" class="img-fluid w-100">
-          <div class="project-hover bg-secondary px-4 py-3">
-            <a href="#" class="text-white h4">Project title</a>
-            <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 shuffle-item">
-        <div class="project-item">
-          <img src="images/project/project-3.jpg" alt="project-image" class="img-fluid w-100">
-          <div class="project-hover bg-secondary px-4 py-3">
-            <a href="#" class="text-white h4">Project title</a>
-            <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 shuffle-item">
-        <div class="project-item">
-          <img src="images/project/project-4.jpg" alt="project-image" class="img-fluid w-100">
-          <div class="project-hover bg-secondary px-4 py-3">
-            <a href="#" class="text-white h4">Project title</a>
-            <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 shuffle-item">
-        <div class="project-item">
-          <img src="images/project/project-5.jpg" alt="project-image" class="img-fluid w-100">
-          <div class="project-hover bg-secondary px-4 py-3">
-            <a href="#" class="text-white h4">Project title</a>
-            <a href="#"><i class="ti-link icon-xs text-white"></i></a>
-          </div>
-        </div>
-      </div> -->
       </div>
     </div>
   </section>
   <!-- /project -->
 
   <!-- call to action -->
-  <section>
-    <div class="container section-sm overlay-secondary-half bg-cover" data-background="images/backgrounds/cta-bg.jpg">
-      <div class="row">
-        <div class="col-lg-8 offset-lg-1">
-          <h2 class="text-gradient-primary">Let's Start With Us!</h2>
-          <p class="h4 font-weight-bold text-white mb-4">Lorem ipsum dolor sit amet, magna habemus ius ad</p>
-          <a href="contact.php" class="btn btn-lg btn-primary">Let’s talk</a>
-        </div>
+<section>
+  <div class="container section-sm overlay-secondary-half bg-cover" data-background="images/backgrounds/cta-bg.jpg">
+    <div class="row">
+      <div class="col-lg-8 offset-lg-1">
+        <h2 class="text-gradient-primary">Contáctanos!</h2>
+        <p class="h4 font-weight-bold text-white mb-4">Transforma tus ideas en contenido impactante con nuestro equipo de expertos</p>
+        <a href="contact.php" class="btn btn-lg btn-primary">Contáctanos ahora</a>
       </div>
     </div>
-  </section>
-  <!-- /call to action -->
+  </div>
+</section>
+<!-- /call to action -->
 
-  <!-- pricing -->
-  <section class="section pb-0">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 mx-auto text-center">
-          <h2>Our Smart Pricing Table</h2>
-          <div class="section-border"></div>
+
+<!-- pricing -->
+<section class="section pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto text-center">
+        <h2>Nuestros Paquetes de Servicios</h2>
+        <div class="section-border"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+        <div class="card bottom-shape bg-secondary pt-4 pb-5">
+          <div class="card-body text-center">
+            <h4 class="text-white">Básico</h4>
+            <p class="text-light mb-4">Producción de video esencial</p>
+            <p class="text-white mb-4">$ <span class="display-3 font-weight-bold vertical-align-middle">300</span></p>
+            <ul class="list-unstyled mb-5">
+              <li class="text-white mb-3">Video de hasta 2 minutos</li>
+              <li class="text-white mb-3">Guión básico</li>
+              <li class="text-white mb-3">1 día de rodaje</li>
+              <li class="text-white mb-3">Edición básica</li>
+              <li class="text-white mb-3">1 ronda de revisiones</li>
+              <li class="text-white mb-3">Entrega en formato HD</li>
+            </ul>
+            <a href="#" class="btn btn-outline-light">Solicitar ahora</a>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-          <div class="card bottom-shape bg-secondary pt-4 pb-5">
-            <div class="card-body text-center">
-              <h4 class="text-white">Basic</h4>
-              <p class="text-light mb-4">Besic and simple website</p>
-              <p class="text-white mb-4">$ <span class="display-3 font-weight-bold vertical-align-middle">30</span></p>
-              <ul class="list-unstyled mb-5">
-                <li class="text-white mb-3">Mobile-Optimized Website</li>
-                <li class="text-white mb-3">Powerful Website Metrics</li>
-                <li class="text-white mb-3">Free Custom Domain</li>
-                <li class="text-white mb-3">24/7 Customer Support</li>
-                <li class="text-white mb-3">Fully Integrated E-Cormmerce</li>
-                <li class="text-white mb-3">Sell unlimited Product</li>
-              </ul>
-              <a href="#" class="btn btn-outline-light">Try it now</a>
-            </div>
+      <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+        <div class="card bottom-shape bg-secondary pt-4 pb-5">
+          <div class="card-body text-center">
+            <h4 class="text-white">Profesional</h4>
+            <p class="text-light mb-4">Producción de video avanzada</p>
+            <p class="text-white mb-4">$ <span class="display-3 font-weight-bold vertical-align-middle">500</span></p>
+            <ul class="list-unstyled mb-5">
+              <li class="text-white mb-3">Video de hasta 5 minutos</li>
+              <li class="text-white mb-3">Guión profesional</li>
+              <li class="text-white mb-3">2 días de rodaje</li>
+              <li class="text-white mb-3">Edición avanzada</li>
+              <li class="text-white mb-3">2 rondas de revisiones</li>
+              <li class="text-white mb-3">Entrega en 4K</li>
+            </ul>
+            <a href="#" class="btn btn-outline-light">Solicitar ahora</a>
           </div>
         </div>
-        <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-          <div class="card bottom-shape bg-secondary pt-4 pb-5">
-            <div class="card-body text-center">
-              <h4 class="text-white">Basic</h4>
-              <p class="text-light mb-4">Besic and simple website</p>
-              <p class="text-white mb-4">$ <span class="display-3 font-weight-bold vertical-align-middle">30</span></p>
-              <ul class="list-unstyled mb-5">
-                <li class="text-white mb-3">Mobile-Optimized Website</li>
-                <li class="text-white mb-3">Powerful Website Metrics</li>
-                <li class="text-white mb-3">Free Custom Domain</li>
-                <li class="text-white mb-3">24/7 Customer Support</li>
-                <li class="text-white mb-3">Fully Integrated E-Cormmerce</li>
-                <li class="text-white mb-3">Sell unlimited Product</li>
-              </ul>
-              <a href="#" class="btn btn-outline-light">Try it now</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
-          <div class="card bottom-shape bg-secondary pt-4 pb-5">
-            <div class="card-body text-center">
-              <h4 class="text-white">Basic</h4>
-              <p class="text-light mb-4">Besic and simple website</p>
-              <p class="text-white mb-4">$ <span class="display-3 font-weight-bold vertical-align-middle">30</span></p>
-              <ul class="list-unstyled mb-5">
-                <li class="text-white mb-3">Mobile-Optimized Website</li>
-                <li class="text-white mb-3">Powerful Website Metrics</li>
-                <li class="text-white mb-3">Free Custom Domain</li>
-                <li class="text-white mb-3">24/7 Customer Support</li>
-                <li class="text-white mb-3">Fully Integrated E-Cormmerce</li>
-                <li class="text-white mb-3">Sell unlimited Product</li>
-              </ul>
-              <a href="#" class="btn btn-outline-light">Try it now</a>
-            </div>
+      </div>
+      <div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+        <div class="card bottom-shape bg-secondary pt-4 pb-5">
+          <div class="card-body text-center">
+            <h4 class="text-white">Premium</h4>
+            <p class="text-light mb-4">Producción de video completa</p>
+            <p class="text-white mb-4">$ <span class="display-3 font-weight-bold vertical-align-middle">1000</span></p>
+            <ul class="list-unstyled mb-5">
+              <li class="text-white mb-3">Video de hasta 10 minutos</li>
+              <li class="text-white mb-3">Guión premium y storyboard</li>
+              <li class="text-white mb-3">3 días de rodaje</li>
+              <li class="text-white mb-3">Edición premium con efectos</li>
+              <li class="text-white mb-3">Revisiones ilimitadas</li>
+              <li class="text-white mb-3">Entrega en 4K y animaciones</li>
+            </ul>
+            <a href="#" class="btn btn-outline-light">Solicitar ahora</a>
           </div>
         </div>
       </div>
     </div>
-  </section>
-  <!-- /pricing -->
+  </div>
+</section>
+<!-- /pricing -->
+
 
   <!-- blog -->
   <section class="section">
     <div class="container">
       <div class="row">
         <div class="col-lg-10 mx-auto text-center">
-          <h2>Latest News</h2>
+          <h2>Últimas Notícias</h2>
           <div class="section-border"></div>
         </div>
       </div>
       <div class="row">
-        <!-- <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <article class="card">
-          <img src="images/blog/post-1.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="#" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div> -->
         <?php foreach ($latestNews as $new) {
           echo "<div class='col-lg-4 col-md-6 mb-4 mb-lg-0'>
             <article class='card'>
@@ -531,29 +475,6 @@ $latestNews = $resultNews->fetch_all(MYSQLI_ASSOC);
             </article>
           </div>";
         } ?>
-
-        <!-- <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <article class="card">
-          <img src="images/blog/post-2.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="#" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div>
-      <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-        <article class="card">
-          <img src="images/blog/post-3.jpg" alt="post-thumb" class="card-img-top mb-2">
-          <div class="card-body p-0">
-            <time>January 15, 2018</time>
-            <a href="blog-single" class="h4 card-title d-block my-3 text-dark hover-text-underline">How These Different
-              Book Covers Reflect the Design</a>
-            <a href="#" class="btn btn-transparent">Read more</a>
-          </div>
-        </article>
-      </div> -->
       </div>
     </div>
   </section>

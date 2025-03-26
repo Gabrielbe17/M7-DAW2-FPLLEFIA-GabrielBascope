@@ -1,9 +1,10 @@
 <?php
+  session_start();
    require_once './config/config.php';
 
 
    // query 
-   echo "<br>";
+  //  echo "<br>";
    $result = $mysqli->query("SELECT * FROM TESTIMONIALS ORDER BY id DESC");
  
  
@@ -55,56 +56,71 @@
   
 
 <header class="navigation fixed-top">
-  <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="Egen"></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
-      aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="index.php"><img src="images/logo.png" alt="Egen"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
+        aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div class="collapse navbar-collapse text-center" id="navigation">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.php">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="about.php">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="services.php">Services</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="blog.php">Blog</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="portfolio.php">Portfolio</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="team.php">Team</a>
-            <a class="dropdown-item" href="team-single.php">Team Details</a>
-            <a class="dropdown-item" href="career.php">Career</a>
-            <a class="dropdown-item" href="career-single.php">Career Details</a>
-            <a class="dropdown-item" href="blog-single.php">Blog Details</a>
-            <a class="dropdown-item" href="pricing.php">Pricing</a></a>
-            <a class="dropdown-item" href="faqs.php">FAQ's</a>
-          </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="contact.php">Contact</a>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
+
+      <div class="collapse navbar-collapse text-center" id="navigation">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.php">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.php">About</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="services.php">Services</a>
+          </li> --> 
+          <li class="nav-item">
+            <a class="nav-link" href="blog.php">Blog</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="portfolio.php">Portfolio</a>
+          </li> -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
+            <div class="dropdown-menu">
+              <!-- <a class="dropdown-item" href="team.php">Team</a> -->
+              <!-- <a class="dropdown-item" href="team-single.php">Team Details</a> -->
+              <!-- <a class="dropdown-item" href="career.php">Career</a> -->
+              <!-- <a class="dropdown-item" href="career-single.php">Career Details</a> -->
+              <!-- <a class="dropdown-item" href="blog-single.php">Blog Details</a> -->
+              <a class="dropdown-item" href="pricing.php">Pricing</a></a>
+              <a class="dropdown-item" href="./faqs.php">FAQ's</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.php">Contact</a>
+          </li>
+        </ul>
+
+
+        <?php if (isset($_SESSION['user_picture'])) : ?>
+          <img src="<?= $_SESSION['user_picture'] ?>" class="rounded-circle img-fluid" style="width: 50px; height: 50px; object-fit: cover;" alt="User Avatar">
+          <p class="mt-3"><?= $_SESSION['user_name'] ?></p>
+          <a href="logout.php" class="btn btn-primary btn-sm">Cerrar Sesión</a>
+
+          <?php if ($_SESSION['user_role'] === 'admin') : ?>
+            <a href="admin.php" class="btn btn-light btn-sm">
+              <img src="./assets/admin.png" class="rounded-circle img-fluid" style="width: 30px; height: 30px; object-fit: cover;" alt="Admin Icon">
+            </a>
+          <?php endif; ?>
+
+        <?php endif; ?>
+      </div>
+    </nav>
+  </header>
 
 <!-- page-title -->
 <section class="page-title bg-cover" data-background="images/backgrounds/page-title.jpg">
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h1 class="display-1 text-white font-weight-bold font-primary">About Agen</h1>
+        <h1 class="display-1 text-white font-weight-bold font-primary">Sobre nosotros</h1>
       </div>
     </div>
   </div>
@@ -116,19 +132,28 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 mb-4 mb-lg-0">
-        <img src="images/about/about-us.png" alt="about" class="img-fluid">
+        <img src="images/about/about-us.png" alt="Equipo de estudio" class="img-fluid">
       </div>
       <div class="col-md-6 col-lg-5">
+        <h3 class="mb-4">Tecnologías y Herramientas</h3>
         <div class="progress-block">
-          <h6 class="text-uppercase">HTML5 Expertise</h6>
+          <h6 class="text-uppercase">Adobe Premiere Pro</h6>
           <div class="progress">
-            <div class="progress-bar" data-percent="85">
-              <span class="skill-number text-dark font-weight-bold"><span class="count">85</span>%</span>
+            <div class="progress-bar" data-percent="98">
+              <span class="skill-number text-dark font-weight-bold"><span class="count">98</span>%</span>
             </div>
           </div>
         </div>
         <div class="progress-block">
-          <h6 class="text-uppercase">jQuery Expertise</h6>
+          <h6 class="text-uppercase">Blender 3D</h6>
+          <div class="progress">
+            <div class="progress-bar" data-percent="90">
+              <span class="skill-number text-dark font-weight-bold"><span class="count">90</span>%</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-block">
+          <h6 class="text-uppercase">DaVinci Resolve</h6>
           <div class="progress">
             <div class="progress-bar" data-percent="95">
               <span class="skill-number text-dark font-weight-bold"><span class="count">95</span>%</span>
@@ -136,18 +161,10 @@
           </div>
         </div>
         <div class="progress-block">
-          <h6 class="text-uppercase">PHP Expertise</h6>
+          <h6 class="text-uppercase">Sony Vegas Pro</h6>
           <div class="progress">
-            <div class="progress-bar" data-percent="79">
-              <span class="skill-number text-dark font-weight-bold"><span class="count">79</span>%</span>
-            </div>
-          </div>
-        </div>
-        <div class="progress-block">
-          <h6 class="text-uppercase">User Interface Expertise</h6>
-          <div class="progress">
-            <div class="progress-bar" data-percent="90">
-              <span class="skill-number text-dark font-weight-bold"><span class="count">90</span>%</span>
+            <div class="progress-bar" data-percent="92">
+              <span class="skill-number text-dark font-weight-bold"><span class="count">92</span>%</span>
             </div>
           </div>
         </div>
@@ -156,6 +173,7 @@
   </div>
 </section>
 <!-- /progressbar -->
+
 
 <!-- video -->
 <section class="section pb-0">
@@ -182,8 +200,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-10 mx-auto text-center">
-        <h2>Our Team</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor</p>
+        <h2>Nuestro Equipo</h2>
+        <p>Contamos con profesionales apasionados y talentosos en todas las áreas de producción audiovisual</p>
         <div class="section-border"></div>
       </div>
     </div>
@@ -192,8 +210,8 @@
         <div class="card hover-shadow">
           <img src="images/team/member-1.jpg" alt="team-member" class="card-img-top">
           <div class="card-body text-center position-relative zindex-1">
-            <h4><a class="text-dark" href="team-single.php">Sara Adams</a></h4>
-            <i>Designer</i>
+            <h4><a class="text-dark" href="team-single.php">Laura Martínez</a></h4>
+            <i>Directora de Fotografía</i>
           </div>
         </div>
       </div>
@@ -201,8 +219,8 @@
         <div class="card hover-shadow">
           <img src="images/team/member-2.jpg" alt="team-member" class="card-img-top">
           <div class="card-body text-center position-relative zindex-1">
-            <h4><a class="text-dark" href="team-single.php">Tom Bills</a></h4>
-            <i>Developer</i>
+            <h4><a class="text-dark" href="team-single.php">Carlos Ruiz</a></h4>
+            <i>Editor de Video</i>
           </div>
         </div>
       </div>
@@ -210,8 +228,8 @@
         <div class="card hover-shadow">
           <img src="images/team/member-3.jpg" alt="team-member" class="card-img-top">
           <div class="card-body text-center position-relative zindex-1">
-            <h4><a class="text-dark" href="team-single.php">Anna Walle</a></h4>
-            <i>Manager</i>
+            <h4><a class="text-dark" href="team-single.php">Ana García</a></h4>
+            <i>Animadora 3D</i>
           </div>
         </div>
       </div>
@@ -219,8 +237,8 @@
         <div class="card hover-shadow">
           <img src="images/team/member-4.jpg" alt="team-member" class="card-img-top">
           <div class="card-body text-center">
-            <h4>Devid Json</h4>
-            <i>CEO</i>
+            <h4>David Sánchez</h4>
+            <i>Director Creativo</i>
           </div>
         </div>
       </div>
@@ -234,7 +252,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h2 class="text-white mb-5">Our Client Testimonails</h2>
+        <h2 class="text-white mb-5">Lo que opinan nuestros clientes</h2>
       </div>
     </div>
     <div class="row bg-contain" data-background="images/banner/brush.png">
@@ -258,17 +276,17 @@
 </section>
 <!-- /testimonial-slider -->
 
-<!-- call to action -->
-<section class="section">
+  <!-- call to action -->
+  <section class="py-5">
   <div class="container section-sm overlay-secondary-half bg-cover" data-background="images/backgrounds/cta-bg.jpg">
-  <div class="row">
-    <div class="col-lg-8 offset-lg-1">
-      <h2 class="text-gradient-primary">Let's Start With Us!</h2>
-      <p class="h4 font-weight-bold text-white mb-4">Lorem ipsum dolor sit amet, magna habemus ius ad</p>
-      <a href="contact.php" class="btn btn-lg btn-primary">Let’s talk</a>
+    <div class="row">
+      <div class="col-lg-8 offset-lg-1">
+        <h2 class="text-gradient-primary">Contáctanos!</h2>
+        <p class="h4 font-weight-bold text-white mb-4">Transforma tus ideas en contenido impactante con nuestro equipo de expertos</p>
+        <a href="contact.php" class="btn btn-lg btn-primary">Contáctanos ahora</a>
+      </div>
     </div>
   </div>
-</div>
 </section>
 <!-- /call to action -->
 

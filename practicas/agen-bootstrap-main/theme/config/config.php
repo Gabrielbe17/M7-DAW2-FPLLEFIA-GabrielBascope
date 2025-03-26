@@ -3,7 +3,7 @@
     $host = 'mysql-gabriel17.alwaysdata.net';
     $dbname = 'gabriel17_uf3crud';
     $username = 'gabriel17';
-    $password = 'Eib19091982-';
+    $password = '';
 
 
     
